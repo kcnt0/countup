@@ -17,6 +17,16 @@ html {
   box-sizing: border-box;
 }
 
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  min-height: 94vh;
+}
+
 *,
 *:before,
 *:after {
