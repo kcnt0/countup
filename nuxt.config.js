@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const buildDate = +new Date()
 
 module.exports = {
   mode: 'spa',
@@ -7,7 +8,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: pkg.name,
+    title: 'KcNt Anniversary',
     meta: [
       {
         charset: 'utf-8'
@@ -20,6 +21,21 @@ module.exports = {
         hid: 'description',
         name: 'description',
         content: pkg.description
+      },
+      {
+        hid: 'author',
+        name: 'author',
+        content: pkg.author
+      },
+      {
+        hid: 'version',
+        name: 'version',
+        content: pkg.version
+      },
+      {
+        hid: 'build-date',
+        name: 'build-date',
+        content: buildDate
       }
     ],
     link: [
@@ -56,7 +72,7 @@ module.exports = {
   ],
 
   env: {
-    buildDate: +new Date()
+    buildDate
   },
 
   /*
