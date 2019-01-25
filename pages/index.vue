@@ -40,7 +40,7 @@
               <button
                 :disabled="saving" 
                 class="button is-danger is-outlined is-large"
-                @click="queryFn({down: true})">Vote down ({{ onlyVoteUp.length }})!</button>
+                @click="queryFn({down: true})">Vote down ({{ onlyVoteDown.length }})!</button>
             </div>
           </div>
         </nav>
