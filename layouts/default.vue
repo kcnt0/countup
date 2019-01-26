@@ -27,6 +27,11 @@ html {
   min-height: 94vh;
 }
 
+.center-container.has-full-size {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
 *,
 *:before,
 *:after {

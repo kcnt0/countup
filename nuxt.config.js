@@ -65,9 +65,6 @@ module.exports = {
   plugins: [
     {
       src: '~plugins/firebase.js'
-    },
-    {
-      src: '~plugins/dateFormat.js'
     }
   ],
 

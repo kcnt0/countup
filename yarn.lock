@@ -8914,6 +8914,11 @@ vue-eslint-parser@^2.0.3:
     esquery "^1.0.0"
     lodash "^4.17.4"
 
+vue-gallery-slideshow@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/vue-gallery-slideshow/-/vue-gallery-slideshow-1.3.0.tgz#b18bd3edd1be3ff8a2cf7c0c7e9ff3faa1796c33"
+  integrity sha512-t+1YQOeUIKX/ZQ1xedHXDU9JcJ5U1EuQNIwcDxfIenXtmNK/+o6ZBUdloLCwFZTyCen39knwPPbdgI+U3t823A==
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
