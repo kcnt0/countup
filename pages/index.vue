@@ -564,7 +564,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 215px;
+  width: 280px;
 }
 
 .text {
