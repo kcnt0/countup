@@ -1,5 +1,91 @@
 <template>
-  <div class="poster-background">
+  <div 
+    :style="'background-image: url(\''+images[imageIndex]+'\');'" 
+    class="poster-background">
+    <div 
+      :class="{'is-active': showHelp}" 
+      class="modal">
+      <div class="modal-background"/>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">KcNt Anniversary</p>
+          <button 
+            class="delete"
+            aria-label="close" 
+            @click="help()"/>
+        </header>
+        <section class="modal-card-body">
+          <div class="content">
+            <h1>จุดเริ่มต้น</h1>
+            <p>เว็บไซต์นี้ สร้างเพื่อความพอใจส่วนตัวล้วนๆ และได้ถูกสร้างขึ้นในเดือนที่ครบรอบ 1 ปีพอดี ตั้งแต่วันที่ <span class="highlight">04 มกราคม 2561</span> ตอนประมาณ 23:52 (+0700) ที่เราได้ตกลงมาเป็นแฟนกัน</p>
+
+            <h3>แรงบันดาลใจ</h3>
+            <p>มีอยู่วันหนึ่งไปเปิดเจอเว็บไซต์คนๆหนึ่ง ที่เขาทำอะไรคล้ายๆแบบนี้ แล้วก็รู้สึกว่าอยากจะลองบ้าง แต่แล้วก็ผ่านไปหลายเดือนกว่าจะได้ทำจริงๆ ในตอนแรกที่ไม่ได้ทำ เพราะว่า<span class="highlight">คุณปรางค์ไม่อนุมัติ</span> 555</p>
+
+            <h3>ความสามารถของเว็บไซต์</h3>
+            <p>เว็บไซต์นี้ มีไว้เพื่อตรวจสอบวันและเวลาที่เราได้คบกันมา โดยมีความสามารถดังนี้</p>
+            <ul>
+              <li>พื้นหลังเป็นรูป และยัง<span class="highlight">สามารถคลิกเพื่อดูทั้งอัลบัมได้</span></li>
+              <li>เวลาจะเพิ่มขึ้นเรื่อยๆ นับตั้งแต่วันที่ 4 มกราคม 2561 เป็นต้นมา</li>
+              <li>ผู้ใช้งานเว็บสามารถกดโหวตความชอบได้ ผ่านการกดที่ปุ่ม 2 ปุ่ม <span class="highlight">ผู้ที่โหวตแล้ว ไม่สามารถโหวตซ้ำได้อีก</span></li>
+              <li>ผู้ใช้งานเว็บไซต์สามารถเลือกรูปพื้นหลังได้เอง <span class="highlight"/>
+                <ul>
+                  <li>โดยดูตัวเลขที่อัลบัม <span class="highlight">1~n</span></li>
+                  <li>เพิ่มตัวเลขที่ได้มาที่ link ตามรูปแบบนี้ <code>?image=&lt;id&gt;</code></li>
+                  <li>ตัวอย่าง <code>https://kcnt.xyz?image=1</code></li>
+                </ul>
+              </li>
+              <li>ผู้ใช้งานสามารถเลือกข้อมูลที่จะโชว์ได้
+                <ul>
+                  <li>โดยเพิ่มสิ่งที่ต้องการจะโชว์ไปยัง link ดังนี้ <code>?show=&lt;code&gt;</code> โดย code ที่เป็นไปได้คือ
+                    <ul>
+                      <li><code>Yr</code> - จำนวนปีที่คบกัน</li>
+                      <li><code>Mt</code> - จำนวนเดือนที่คบกัน (ถ้าครบปีจะถูกปรับเป็น 0 ใหม่)</li>
+                      <li><code>Dy</code> - จำนวนวันที่คบกัน (ถ้าครบเดือนจะถูกปรับเป็น 0 ใหม่)</li>
+                      <li><code>Hr</code> - จำนวนชั่วโมงที่คบกัน (ถ้าครบวันจะถูกปรับเป็น 0 ใหม่)</li>
+                      <li><code>Mi</code> - จำนวนนาทีที่คบกัน (ถ้าครบชั่วโมงจะถูกปรับเป็น 0 ใหม่)</li>
+                      <li><code>Sc</code> - จำนวนวินาทีที่คบกัน (ถ้าครบนาทีจะถูกปรับเป็น 0 ใหม่)</li>
+                      <li><code>Ms</code> - จำนวนเสี้ยววินาที (ms) ที่คบกัน (ถ้าครบวินาทีจะถูกปรับเป็น 0 ใหม่)</li>
+                      <li><code>Ayr</code> - จำนวนปี<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                      <li><code>Amt</code> - จำนวนเดือน<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                      <li><code>Ady</code> - จำนวนวัน<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                      <li><code>Ahr</code> - จำนวนชั่วโมง<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                      <li><code>Ami</code> - จำนวนนาที<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                      <li><code>Asc</code> - จำนวนวินาที<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                      <li><code>Ams</code> - จำนวนเสี้ยววินาที (ms) <span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
+                    </ul>
+                  </li>
+                  <li>แบนเนอร์จะเรียงตาม code ที่ต่อกัน</li>
+                  <li>ตัวอย่าง <code>https://kcnt.xyz?show=AdyHrMiSc</code></li>
+                </ul>
+              </li>
+              <li>a</li>
+            </ul>
+            <blockquote><span class="highlight">หมายเหตุ</span> ถ้ามีการต่อ link มากกว่า 1 อัน ให้เปลื่ยน <code>?</code> เป็น <code>&</code> <br>
+              เช่น <code>https://kcnt.xyz?a=a&b=b&c=c</code></blockquote>
+
+            <h3>ข้อมูลของเว็บไซต์</h3>
+            <ul>
+              <li>เวอร์ชั่น: {{ version }}</li>
+              <li>อัพเดตเมื่อ {{ buildMoment.fromNow() }}</li>
+              <li>พัฒนาโดย คุณ<a 
+                href="https://kcnt.info/net" 
+                target="_blank">กมนทัต จันทราจีระธำรงค์</a></li>
+              <li>ออกแบบและดีไซน์โดย คุณ<a 
+                href="https://kcnt.info/prang" 
+                target="_blank">ณัชชา ไตรรัตน์ชัชวาลย์</a></li>
+              <li>โปรแกรมซอร์สโค้ด: Gitlab</li>
+            </ul>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button 
+            class="button is-success" 
+            @click="help()">OK</button>
+        </footer>
+      </div>
+    </div>
+
     <div 
       v-show="hasError" 
       class="notification-area">
@@ -10,17 +96,11 @@
         {{ error }}
       </div>
     </div>
+
     <div 
       class="image-area" 
-      @click="galleryIndex = imageIndex">
-      <!-- <figure class="image" >
-        <img 
-          :src="images[imageIndex]"
-          alt="poster images of the website" 
-          class="poster" 
-          @click="galleryIndex = imageIndex">
-      </figure> -->
-    </div>
+      @click="galleryIndex = imageIndex" />
+
     <div class="center-container has-full-size">
       <Firework v-if="onCalibrationDate" />
       <VueGallerySlideshow 
@@ -30,26 +110,17 @@
       <section class="content-area section">
         <div class="container is-fluid">
           <div>
-            <h1 class="title is-size-2 has-text-centered has-text-white-bis has-text-weight-semibold is-family-primary">
-              KcNt <span class="important">Anniversary</span> Website
+            <h1 class="title is-size-2 has-text-centered has-text-white-bis has-text-weight-semibold is-family-primary font-main">
+              KcNt <span class="important">Anniversary</span> Website <a @click="help()">?</a>
             </h1>
           </div>
-          <!-- <div style="padding-top: 2rem;" >
-            <figure class="image" >
-              <img 
-                :src="images[imageIndex]"
-                alt="poster images of the website" 
-                class="poster" 
-                @click="galleryIndex = imageIndex">
-            </figure>
-          </div> -->
           <nav class="level is-marginless has-text-grey-light">
             <div 
               v-for="showQuery in show"
               :key="showQuery"
               class="level-item has-text-centered block">
-              <p class="digit is-family-primary">{{ formatDateTime(queryDateTime(showQuery)).value }}</p>
-              <p class="text is-family-secondary">{{ queryDateTime(showQuery).key }}</p>
+              <p class="digit font-digital is-family-primary">{{ formatDateTime(queryDateTime(showQuery)).value }}</p>
+              <p class="text font-main is-family-secondary">{{ queryDateTime(showQuery).key }}</p>
             </div>
           </nav>
 
@@ -100,6 +171,7 @@
 <script>
 import crypto from 'crypto'
 import moment from 'moment'
+moment.locale('th')
 
 import { queryIP } from '@/assets/apis/ip.js'
 
@@ -120,6 +192,7 @@ export default {
     const datingDate = moment('04 Jan 2018 23:52:00 +0700') // should be correct once.
     return {
       buildDate: process.env.buildDate,
+      version: process.env.version,
       saving: false,
       id: '',
       ipaddress: {},
@@ -128,9 +201,10 @@ export default {
       error: '',
       datingDate,
       history: [],
-      show: ['D', 'h', 'M', 's'],
+      show: ['Ady', 'Hr', 'Mi', 'Sc'],
       images: ['/poster.jpg', '/kcapstone.jpg'],
       imageIndex: 0,
+      showHelp: false,
       galleryIndex: null,
       voted: false
     }
@@ -144,14 +218,29 @@ export default {
     dateDuration() {
       return moment.duration(this.now.diff(this.datingDate))
     },
+    buildMoment() {
+      return moment(this.buildDate)
+    },
+    asMilliseconds() {
+      return Math.floor(this.dateDuration.asMilliseconds())
+    },
     milliseconds() {
       return this.dateDuration.milliseconds()
+    },
+    asSeconds() {
+      return Math.floor(this.dateDuration.asSeconds())
     },
     seconds() {
       return this.dateDuration.seconds()
     },
+    asMinutes() {
+      return Math.floor(this.dateDuration.asMinutes())
+    },
     minutes() {
       return this.dateDuration.minutes()
+    },
+    asHours() {
+      return Math.floor(this.dateDuration.asHours())
     },
     hours() {
       return this.dateDuration.hours()
@@ -162,8 +251,14 @@ export default {
     days() {
       return this.dateDuration.days()
     },
+    asMonths() {
+      return Math.floor(this.dateDuration.asMonths())
+    },
     months() {
       return this.dateDuration.months()
+    },
+    asYears() {
+      return Math.floor(this.dateDuration.asYears())
     },
     years() {
       return this.dateDuration.years()
@@ -207,8 +302,8 @@ export default {
         ipaddress: ip
       }
 
-      if (show) result.show = show.split('')
-      if (image) result.imageIndex = image
+      if (show) result.show = show.split(/(?=[A-Z])/)
+      if (image) result.imageIndex = parseInt(image) || 0
 
       return result
     } catch (e) {
@@ -228,24 +323,36 @@ export default {
   methods: {
     queryDateTime(query) {
       switch (query) {
-        case 'y':
+        case 'Yr':
           return { key: 'Years', value: this.years }
-        case 'm':
+        case 'Mt':
           return { key: 'Months', value: this.months }
-        case 'd':
+        case 'Dy':
           return { key: 'Days', value: this.days }
-        case 'D':
-          return { key: 'Days', value: this.asDays }
-        case 'h':
+        case 'Hr':
           return { key: 'Hours', value: this.hours }
-        case 'M':
+        case 'Mi':
           return { key: 'Minutes', value: this.minutes }
-        case 's':
+        case 'Sc':
           return { key: 'Seconds', value: this.seconds }
-        case 'S':
-          return { key: 'Millisecond', value: this.milliseconds }
+        case 'Ms':
+          return { key: 'Milliseconds', value: this.milliseconds }
+        case 'Ayr':
+          return { key: 'Years', value: this.asYears }
+        case 'Amt':
+          return { key: 'Months', value: this.asMonths }
+        case 'Ady':
+          return { key: 'Days', value: this.asDays }
+        case 'Ahr':
+          return { key: 'Hours', value: this.asHours }
+        case 'Ami':
+          return { key: 'Minutes', value: this.asMinutes }
+        case 'Asc':
+          return { key: 'Seconds', value: this.asSeconds }
+        case 'Ams':
+          return { key: 'Milliseconds', value: this.asMilliseconds }
         default:
-          return this.dateDuration
+          return { key: 'Date', value: this.dateDuration }
       }
     },
     formatDateTime(obj, number) {
@@ -275,10 +382,12 @@ export default {
       const node = this.queryIPAddress()
 
       try {
-        if (node)
+        if (node) {
+          this.voted = true
           throw new Error(
             `You already voted (${moment(node.timestamp).toLocaleString()})!`
           )
+        }
 
         const newRef = ref.push()
         await newRef.set({
@@ -287,8 +396,9 @@ export default {
           ip: this.ipaddress,
           timestamp: date
         })
+
         this.id = id
-        // this.$router.replace({ query: { id: this.id } })
+        this.voted = true
       } catch (e) {
         this.error = e.toString()
         this.hasError = true
@@ -300,6 +410,9 @@ export default {
       console.log(this.galleryIndex)
       this.galleryIndex = null
     },
+    help() {
+      this.showHelp = !this.showHelp
+    },
     delayError(ms) {
       window.setTimeout(() => {
         this.hasError = false
@@ -310,6 +423,10 @@ export default {
 </script>
 
 <style scoped>
+.modal {
+  z-index: 9999;
+}
+
 .notification-area {
   z-index: 1000;
   position: absolute;
@@ -351,7 +468,6 @@ export default {
 }
 
 .poster-background {
-  background-image: url('/poster.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -375,8 +491,6 @@ export default {
 .digit {
   color: #60c1e8;
   font-size: 5rem;
-  font-weight: 100;
-  margin: 10px;
   text-align: center;
 }
 
@@ -386,5 +500,13 @@ export default {
 
 .history {
   text-align: start;
+}
+
+.highlight {
+  color: #ff3333;
+}
+
+.highlight:hover {
+  color: #e60000;
 }
 </style>

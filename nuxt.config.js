@@ -57,7 +57,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~/assets/styles/font.css'],
 
   /*
    ** Plugins to load before mounting the App
@@ -69,7 +69,8 @@ module.exports = {
   ],
 
   env: {
-    buildDate
+    buildDate,
+    version: pkg.version
   },
 
   /*
