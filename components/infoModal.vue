@@ -129,7 +129,7 @@
           <h3 class="has-text-primary">ข้อมูลของเว็บไซต์</h3>
           <ul>
             <li>เวอร์ชั่น: {{ information.version }}</li>
-            <li>อัพเดตเมื่อ {{ information.moment.fromNow() }} ({{ information.moment.format("X") }})</li>
+            <li>อัพเดตเมื่อ {{ information.moment.fromNow() }} ({{ information.timestamp }})</li>
             <li>พัฒนาโดย คุณ<a 
               :href="developer.link" 
               target="_blank">{{ developer.name }}</a></li>
@@ -159,7 +159,8 @@ export default {
       default: () => {
         return {
           version: '0.0.0',
-          moment: moment()
+          moment: moment(),
+          timestamp: ''
         }
       }
     },

@@ -56,6 +56,12 @@
                   @click="submitVote()">
                   Send vote
                 </button>
+
+                <button 
+                  class="button is-error" 
+                  @click="removeVote(true)">
+                  Remove vote
+                </button>
               </div>
             </div>
           </div>
@@ -69,7 +75,7 @@
 
       <infoModal 
         v-model="showHelp" 
-        :information="{version: version, moment: buildMoment}"/>
+        :information="{version: version, moment: buildMoment, timestamp: buildDate}"/>
 
       <Firework 
         v-if="onCalibrationDate" 
@@ -502,11 +508,17 @@ export default {
       })
     },
     submitVote() {
-      if (this.password === 'kcnt-anniversary') {
+      if (this.password === this.buildDate.toString()) {
         this.saving = false
         this.queryFn({ up: this.voteup, down: !this.voteup }, { force: true })
       } else {
-        this.voted = true
+        // this.voted = true
+        this.$notify({
+          group: 'vote',
+          type: 'warn',
+          title: 'wrong password',
+          text: 'Your password is not correct'
+        })
       }
 
       this.$modal.hide('password')
@@ -514,8 +526,20 @@ export default {
     isNodeExist() {
       return this.queryIPAddress() !== undefined
     },
-    closed() {
-      if (!this.password) this.voted = true
+    removeVote(force) {
+      if (force === true) {
+        this.$modal.hide('password')
+      }
+
+      if (force === true || !this.password) {
+        this.voted = true
+        this.$notify({
+          group: 'vote',
+          type: 'warn',
+          title: 'Shutdown voting container',
+          text: 'since you not interest to have a vote, remove it'
+        })
+      }
     },
     async queryFn(query, opts) {
       if (!opts) opts = {}
@@ -532,6 +556,7 @@ export default {
 
       try {
         if (!opts.force && this.isNodeExist()) {
+          this.saving = false
           this.$modal.show('password')
           return
           // this.voted = true
