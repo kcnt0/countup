@@ -1,129 +1,127 @@
 <template>
-  <div 
-    :style="'background-image: url(\''+images[imageIndex]+'\');'" 
-    class="poster-background">
-
-    <infoModal 
-      v-model="showHelp" 
-      :information="{version: version, moment: buildMoment}"/>
-
-    <Firework 
-      v-if="onCalibrationDate" 
-      :firework-rate="fireworkRate"
-      :firework="fireworkNumber"
-      :class="{'always-top': focus === 'firework'}"
-      class="firework-area"
-      @click="galleryIndex = imageIndex" />
-
-    <VueGallerySlideshow 
-      :images="images"
-      :index="galleryIndex" 
-      class="gallery-area" 
-      @close="closeGallery()"/>
-
-    <Notification 
-      v-model="hasError" 
-      :message="error"
-      type="danger"/>
-
-    <Notification 
-      v-model="hasSuccess" 
-      :message="success"
-      type="success"/>
+  <div>
+    <notifications 
+      group="vote" 
+      position="bottom right"
+      width="100%"
+      max="3" />
 
     <div 
-      class="image-area" 
-      @click="galleryIndex = imageIndex" />
+      :style="'background-image: url(\''+images[imageIndex]+'\');'" 
+      class="poster-background">
+
+      <infoModal 
+        v-model="showHelp" 
+        :information="{version: version, moment: buildMoment}"/>
+
+      <Firework 
+        v-if="onCalibrationDate" 
+        :firework-rate="fireworkRate"
+        :firework="fireworkNumber"
+        :class="{'always-top': focus === 'firework'}"
+        class="firework-area"
+        @click="galleryIndex = imageIndex" />
+
+      <VueGallerySlideshow 
+        :images="images"
+        :index="galleryIndex" 
+        class="gallery-area" 
+        @close="closeGallery()"/>
+
+      <div 
+        class="image-area" 
+        @click="galleryIndex = imageIndex" />
 
 
-    <div class="center-container has-full-size">
-      <transition name="fade">
-        <section 
-          v-if="showBanner"
-          :class="{'always-top': focus === 'content'}" 
-          class="content-area section is-paddingless">
-          <div class="close-content-area">
-            <button 
-              class="delete is-large" 
-              @click="showBanner = false"/>
-          </div>
-          <div 
-            class="container is-fluid" 
-            style="margin-right: 68px;margin-left: 68px;">
-            <div class="title-container">
-              <h1 class="title is-size-2 has-text-centered has-text-white-bis has-text-weight-semibold is-family-primary font-main">
-                KcNt <span class="important">Anniversary</span> Website <a 
-                  class="always-top" 
-                  @click="showHelp = true">?</a>
-              </h1>
+      <div class="center-container has-full-size">
+        <transition name="fade">
+          <section 
+            v-if="showBanner"
+            :class="{'always-top': focus === 'content'}" 
+            class="content-area section is-paddingless">
+            <div class="close-content-area">
+              <button 
+                class="delete is-large" 
+                @click="showBanner = false"/>
             </div>
-
-            <div class="columns is-multiline has-text-grey-light is-centered" >
-              <div 
-                v-for="showQuery in show"
-                :key="showQuery"
-                class="column is-narrow is-centered has-text-centered">
-                <div class="block">
-                  <p 
-                    :style="'color: '+queryDateTime(showQuery).color"
-                    class="digit font-digital is-family-primary">{{ formatDateTime(queryDateTime(showQuery)).value }}</p>
-                  <p 
-                    class="text font-main is-family-secondary">{{ queryDateTime(showQuery).key }}</p>
-                </div>
+            <div 
+              class="container is-fluid" 
+              style="margin-right: 68px;margin-left: 68px;">
+              <div class="title-container">
+                <h1 class="title is-size-2 has-text-centered has-text-white-bis has-text-weight-semibold is-family-primary font-main">
+                  KcNt <span class="important">Anniversary</span> Website <a 
+                    class="always-top" 
+                    @click="showHelp = true">?</a>
+                </h1>
               </div>
-            </div>
 
-            <nav 
-              v-if="!voted" 
-              class="level is-mobile">
-              <div class="level-item has-text-centered">
-                <div>
-                  <button 
-                    :disabled="saving" 
-                    class="button is-success is-outlined is-large font-main"
-                    @click="queryFn({up: true})">Vote up ({{ onlyVoteUp.length }})!</button>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <button
-                    :disabled="saving" 
-                    class="button is-danger is-outlined is-large font-main"
-                    @click="queryFn({down: true})">Vote down ({{ onlyVoteDown.length }})!</button>
-                </div>
-              </div>
-            </nav>
-
-            <section 
-              v-show="history.length > 0" 
-              class="section">
-              <div class="history">
-                <div class="field is-grouped is-grouped-multiline">
-                  <div 
-                    v-for="node in history" 
-                    :key="node.id" 
-                    class="control">
-                    <div class="tags has-addons">
-                      <span class="tag">{{ node.ip.country }}{{ node.ip.city ? "-"+node.ip.city : '' }}</span>
-                      <span 
-                        :class="node.voteup ? 'is-success' : 'is-danger'" 
-                        class="tag">{{ node.voteup ? "UP" : "DOWN" }}</span>
-                    </div>
+              <div class="columns is-multiline has-text-grey-light is-centered" >
+                <div 
+                  v-for="showQuery in show"
+                  :key="showQuery"
+                  class="column is-narrow is-centered has-text-centered">
+                  <div class="block">
+                    <p 
+                      :style="'color: '+queryDateTime(showQuery).color"
+                      class="digit font-digital is-family-primary">{{ formatDateTime(queryDateTime(showQuery)).value }}</p>
+                    <p 
+                      class="text font-main is-family-secondary">{{ queryDateTime(showQuery).key }}</p>
                   </div>
                 </div>
               </div>
-            </section>
-          </div>
-        </section>
-      </transition>
-    </div>
 
-    <button 
-      v-if="!showBanner"
-      class="fab" 
-      @click="showBanner = true">
-      <span class="plus">+</span>
-    </button>
+              <nav 
+                v-if="!voted" 
+                class="level is-mobile">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <button 
+                      :disabled="saving" 
+                      class="button is-success is-outlined is-large font-main"
+                      @click="queryFn({up: true})">Vote up ({{ onlyVoteUp.length }})!</button>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <button
+                      :disabled="saving" 
+                      class="button is-danger is-outlined is-large font-main"
+                      @click="queryFn({down: true})">Vote down ({{ onlyVoteDown.length }})!</button>
+                  </div>
+                </div>
+              </nav>
+
+              <section 
+                v-show="history.length > 0" 
+                class="section">
+                <div class="history">
+                  <div class="field is-grouped is-grouped-multiline">
+                    <div 
+                      v-for="node in history" 
+                      :key="node.id" 
+                      class="control">
+                      <div class="tags has-addons">
+                        <span class="tag">{{ node.ip.country }}{{ node.ip.city ? "-"+node.ip.city : '' }}</span>
+                        <span 
+                          :class="node.voteup ? 'is-success' : 'is-danger'" 
+                          class="tag">{{ node.voteup ? "UP" : "DOWN" }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </transition>
+      </div>
+
+      <button 
+        v-if="!showBanner"
+        class="fab" 
+        @click="showBanner = true">
+        <span class="plus">+</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -137,13 +135,11 @@ import { queryIP } from '@/assets/apis/ip.js'
 import VueGallerySlideshow from 'vue-gallery-slideshow'
 import Firework from '@/components/firework.vue'
 import InfoModal from '@/components/infoModal.vue'
-import Notification from '@/components/notification.vue'
 
 export default {
   components: {
     Firework,
     InfoModal,
-    Notification,
     VueGallerySlideshow
   },
   data() {
@@ -155,10 +151,10 @@ export default {
       id: '',
       ipaddress: {},
       now: moment(),
-      hasError: false,
-      error: '',
-      hasSuccess: false,
-      success: '',
+      hasNotify: false,
+      notifyType: '',
+      notifyTitle: '',
+      notifyText: '',
       datingDate,
       history: [],
       show: ['Ady', 'Hr', 'Mi', 'Sc'],
@@ -180,7 +176,8 @@ export default {
       fireworkRate: undefined,
       fireworkNumber: 6,
       colorful: false,
-      showBanner: true
+      showBanner: true,
+      focus: 'content'
     }
   },
   computed: {
@@ -261,6 +258,17 @@ export default {
         p[c] = (this.colorful && this.randomColor('100%')) || 'inherite'
         return p
       }, {})
+
+    if (this.hasNotify) {
+      this.$notify({
+        group: 'vote',
+        title: this.notifyTitle,
+        text: this.notifyText,
+        type: this.notifyType
+      })
+
+      this.hasNotify = false
+    }
   },
   async asyncData(ctx) {
     const query = ctx.query
@@ -303,13 +311,12 @@ export default {
           return v.ip.loc === ip.loc && v.ip.ip === ip.ip
         })
 
+        // already voted
         if (node) {
-          result.voted = true
-          result.hasSuccess = true
-          result.success = `You already vote our website on ${moment(
-            node.timestamp
-          ).fromNow()}`
-
+          result.hasNotify = true
+          result.notifyType = 'success'
+          result.notifyTitle = 'Welcome back'
+          result.notifyText = 'You already voted on my website, thank you'
           if (!result.focus) result.focus = 'firework'
         }
       }
@@ -317,15 +324,14 @@ export default {
       return result
     } catch (e) {
       return {
-        error: e.toString(),
-        hasError: true
-      }
-    }
-
-    return {
-      ipaddress: {
-        ip: '127.0.0.1',
-        country: 'UNKNOWN'
+        ipaddress: {
+          ip: '127.0.0.1',
+          country: 'UNKNOWN'
+        },
+        hasNotify: true,
+        notifyType: 'error',
+        notifyTitle: 'Error',
+        notifyText: e.toString()
       }
     }
   },
@@ -448,7 +454,7 @@ export default {
 
       try {
         if (node) {
-          this.voted = true
+          // this.voted = true
           throw new Error(
             `You already voted (${moment(node.timestamp).fromNow()})!`
           )
@@ -463,13 +469,19 @@ export default {
         })
 
         this.id = id
-        this.voted = true
-
-        this.hasSuccess = true
-        this.success = 'Thank you for voting our website'
+        this.$notify({
+          group: 'vote',
+          title: 'Thank you',
+          text: 'Thank you for voting our website',
+          type: 'success'
+        })
       } catch (e) {
-        this.error = e.toString()
-        this.hasError = true
+        this.$notify({
+          group: 'vote',
+          title: 'Error',
+          text: e.toString(),
+          type: 'error'
+        })
       }
       this.saving = false
     },

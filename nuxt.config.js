@@ -65,6 +65,12 @@ module.exports = {
   plugins: [
     {
       src: '~plugins/firebase.js'
+    },
+    {
+      src: '~plugins/vue-modal.js'
+    },
+    {
+      src: '~plugins/notification.js'
     }
   ],
 
