@@ -24,9 +24,14 @@
 </style>
 
 <script>
-const InitialNumberOfExplodeSeed = 10
 const InitalSeedAcceleration = 0.1
 const InitalSeedSpeed = 5
+const InitialSeedNumber = 10
+const InitialReSeed = 5 // n% to reset and launch new seed
+
+const InitialExplodeRate = 5
+
+const explodeStartPosition = [0, 200] // top of screen until down 200px
 
 export default {
   props: {
@@ -37,6 +42,14 @@ export default {
     boxWidth: {
       type: String,
       default: '100%'
+    },
+    fireworkRate: {
+      type: Number,
+      default: InitialReSeed
+    },
+    fireworkNumber: {
+      type: Number,
+      default: InitialSeedNumber
     }
   },
   data() {
@@ -45,8 +58,7 @@ export default {
       height: 490,
       seedAmount: 0,
       seeds: [],
-      particles: [],
-      auto: true
+      auto: false
     }
   },
   computed: {
@@ -57,7 +69,6 @@ export default {
       if (this.canvas !== undefined) {
         return this.canvas.getContext('2d')
       }
-
       return null
     },
     canvasBoxHeight() {
@@ -69,17 +80,16 @@ export default {
   },
   mounted() {
     const self = this
+
     self.init()
     self.loop()
+
     window.addEventListener('click', event => {
-      const seed = self.Seed(
-        event.pageX,
-        event.pageY,
-        self.randomInt(175, 185),
-        [self.randomInt(0, 359), '100%', '50%']
-      )
-      self.seeds.push(seed)
+      self.$on('click', event)
+      // const seed = self.Seed(event.pageX, event.pageY)
+      // self.seeds.push(seed)
     })
+
     window.addEventListener('resize', () => {
       self.width = window.innerWidth
       self.height = window.innerHeight
@@ -107,119 +117,162 @@ export default {
         this.ctx.globalCompositeOperation = 'lighter'
 
         for (let i = 0; i < this.seeds.length; i += 1) {
-          if (!this.seeds[i].dead) {
-            this.seeds[i].move()
-            this.seeds[i].draw()
+          const firework = this.seeds[i]
+          if (!firework.dead) {
+            firework.move()
+            firework.draw()
           } else {
-            this.seeds.splice(i, 1)
+            for (let j = 0; j < firework.particles.length; j++) {
+              const particle = firework.particles[j]
+              if (!particle.dead) {
+                particle.move()
+                particle.draw()
+              }
+            }
           }
         }
 
-        for (let i = 0; i < this.particles.length; i += 1) {
-          if (!this.particles[i].dead) {
-            this.particles[i].move()
-            this.particles[i].draw()
-          } else {
-            this.particles.splice(i, 1)
+        for (let i = 0; i < this.seeds.length; i += 1) {
+          const firework = this.seeds[i]
+          for (let j = 0; j < firework.particles.length; j++) {
+            const particle = firework.particles[j]
+            if (particle.dead) {
+              firework.reset()
+              break
+            }
           }
-        }
-
-        if (this.auto && this.seedAmount % 40 === 0) {
-          const seed = this.Seed(
-            this.randomInt(20, this.width - 20),
-            this.height - 20,
-            this.randomInt(175, 185),
-            [this.randomInt(0, 359), '100%', '50%']
-          )
-          this.seeds.push(seed)
         }
 
         this.ctx.globalCompositeOperation = 'destination-out'
         requestAnimationFrame(this.loop)
-        this.seedAmount += 1
+        // this.seedAmount += 1
       }
     },
-    Seed(x, y, angle, color) {
+    Seed(x, y) {
       const self = this
       const radius = 3
       const acceleration = InitalSeedAcceleration
-      const h = color[0]
-      const s = color[1]
-      const l = color[2]
+      const h = self.randomInt(0, 359)
+      const s = '100%'
+      const l = '50%'
       const finalColor = `hsla(${h}, ${s}, ${l}, 1)`
 
       const dead = false
-      const fireSeed = {}
-      let speed = InitalSeedSpeed
+      const fireSeed = { name: 'Seed' }
 
-      fireSeed.x = x
-      fireSeed.y = y
-      fireSeed.move = () => {
-        if (fireSeed.y > self.randomInt(100, 200)) {
-          speed += acceleration
-          fireSeed.x += speed * Math.sin((Math.PI / 180) * angle)
-          fireSeed.y += speed * Math.cos((Math.PI / 180) * angle)
-        } else if (!dead) {
-          fireSeed.explode()
-          fireSeed.dead = true
+      fireSeed.x = x || self.randomInt(20, this.width - 20)
+      fireSeed.y = y || self.height - 20
+      fireSeed.speed = InitalSeedSpeed
+      fireSeed.angle = self.randomInt(160, 190)
+      fireSeed.particles = []
+      fireSeed.color = finalColor
+      fireSeed.hsl = {
+        h: h,
+        s: s,
+        l: l
+      }
+
+      fireSeed.reset = function() {
+        const h = self.randomInt(0, 359)
+        const s = '100%'
+        const l = '50%'
+        const finalColor = `hsla(${h}, ${s}, ${l}, 1)`
+
+        this.dead = false
+        this.x = self.randomInt(20, self.width - 20)
+        this.y = self.height - 20
+        this.speed = InitalSeedSpeed
+        this.angle = self.randomInt(160, 190)
+        this.particles = []
+        this.color = finalColor
+        this.hsl = {
+          h: h,
+          s: s,
+          l: l
         }
       }
-      fireSeed.draw = () => {
-        self.ctx.fillStyle = finalColor
-        self.circle(fireSeed.x, fireSeed.y, radius)
+
+      fireSeed.move = function() {
+        if (
+          this.y >
+          self.randomInt(explodeStartPosition[0], explodeStartPosition[1])
+        ) {
+          this.speed += acceleration
+
+          // console.log(speed * Math.sin((Math.PI / 180) * this.angle))
+          // console.log(`before: ${this.x}`)
+          this.x += this.speed * Math.sin((Math.PI / 180) * this.angle)
+          this.y += this.speed * Math.cos((Math.PI / 180) * this.angle)
+        } else if (!dead) {
+          this.explode()
+          this.dead = true
+        }
+      }
+      fireSeed.draw = function() {
+        self.ctx.fillStyle = this.color
+        self.circle(this.x, this.y, radius)
         self.ctx.fill()
       }
-      fireSeed.explode = () => {
-        for (let i = 0; i < 359; i += InitialNumberOfExplodeSeed) {
-          const particle = self.Firework(
-            fireSeed.x,
-            fireSeed.y,
-            i + self.randomInt(-200, 200) / 100,
-            [h, s, l]
+      fireSeed.explode = function() {
+        this.particles = []
+        for (let i = 0; i < 359; i += InitialExplodeRate) {
+          this.particles.push(
+            self.Firework(this.x, this.y, i + self.randomInt(-250, 250) / 100, [
+              this.hsl.h,
+              this.hsl.s,
+              this.hsl.l
+            ])
           )
-          self.particles.push(particle)
         }
       }
+
       fireSeed.dead = dead
       return fireSeed
     },
     Firework(x, y, angle, color) {
       const self = this
-      const fireSeed = {}
-      const angleOffset = self.randomInt(-20, 20) / 100
       const radius = 1
       const acceleration = -0.01
       const gravity = 0.01
 
-      let opacity = 1
-      let finalColor = `hsla(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`
-      let verticalSpeed = 0
-      let speed = self.randomInt(195, 205) / 100
-      let targetAngle = angle
-      let positionX = x
-      let positionY = y
-      fireSeed.dead = false
-      fireSeed.move = () => {
-        if (opacity > 0) {
-          if (speed > 0) {
-            speed += acceleration
-          }
+      const fireSeed = {
+        name: `Firework-${angle}`,
+        x: x,
+        y: y,
+        opacity: 1,
+        opacitySpeed: self.randomInt(10, 1000) / 100000,
+        speed: self.randomInt(150, 200) / 100,
+        vSpeed: 0,
+        color: `hsla(${color[0]}, ${color[1]}, ${color[2]}, 1)`,
+        angle,
+        offset: self.randomInt(-20, 20) / 100,
+        radius: radius,
+        dead: false,
+        move() {
+          if (this.opacity > 0) {
+            if (this.speed > 0) {
+              this.speed += acceleration
+            }
 
-          targetAngle += angleOffset
-          opacity -= 0.005
-          finalColor = `hsla(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`
-          verticalSpeed += gravity
-          positionX += speed * Math.sin((Math.PI / 180) * targetAngle)
-          positionY +=
-            speed * Math.cos((Math.PI / 180) * targetAngle) + verticalSpeed
-        } else if (!fireSeed.dead) {
-          fireSeed.dead = true
+            this.angle += this.offset
+            this.opacity -= this.opacitySpeed
+            this.color = `hsla(${color[0]}, ${color[1]}, ${color[2]}, ${
+              this.opacity
+            })`
+            this.vSpeed += gravity
+
+            this.x += this.speed * Math.sin((Math.PI / 180) * this.angle)
+            this.y +=
+              this.speed * Math.cos((Math.PI / 180) * this.angle) + this.vSpeed
+          } else if (!this.dead) {
+            this.dead = true
+          }
+        },
+        draw() {
+          self.ctx.fillStyle = this.color
+          self.circle(this.x, this.y, this.radius)
+          self.ctx.fill()
         }
-      }
-      fireSeed.draw = () => {
-        self.ctx.fillStyle = finalColor
-        self.circle(positionX, positionY, radius)
-        self.ctx.fill()
       }
 
       return fireSeed
@@ -230,6 +283,15 @@ export default {
     init() {
       this.canvas.width = this.width
       this.canvas.height = this.height
+
+      for (let i = 0; i < this.fireworkNumber; i++) {
+        const seed = this.Seed(
+          this.randomInt(20, this.width - 20),
+          this.height - 100,
+          this.randomInt(175, 185)
+        )
+        this.seeds.push(seed)
+      }
     }
   }
 }

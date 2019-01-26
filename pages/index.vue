@@ -2,169 +2,128 @@
   <div 
     :style="'background-image: url(\''+images[imageIndex]+'\');'" 
     class="poster-background">
-    <div 
-      :class="{'is-active': showHelp}" 
-      class="modal">
-      <div class="modal-background"/>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="font-main modal-card-title">KcNt Anniversary</p>
-          <button 
-            class="delete"
-            aria-label="close" 
-            @click="help()"/>
-        </header>
-        <section class="modal-card-body">
-          <div class="content font-thai" >
-            <h1>จุดเริ่มต้น</h1>
-            <p>เว็บไซต์นี้ สร้างเพื่อความพอใจส่วนตัวล้วนๆ และได้ถูกสร้างขึ้นในเดือนที่ครบรอบ 1 ปีพอดี ตั้งแต่วันที่ <span class="highlight">04 มกราคม 2561</span> ตอนประมาณ 23:52 (+0700) ที่เราได้ตกลงมาเป็นแฟนกัน</p>
 
-            <h3>แรงบันดาลใจ</h3>
-            <p>มีอยู่วันหนึ่งไปเปิดเจอเว็บไซต์คนๆหนึ่ง ที่เขาทำอะไรคล้ายๆแบบนี้ แล้วก็รู้สึกว่าอยากจะลองบ้าง แต่แล้วก็ผ่านไปหลายเดือนกว่าจะได้ทำจริงๆ ในตอนแรกที่ไม่ได้ทำ เพราะว่า<span class="highlight">คุณปรางค์ไม่อนุมัติ</span> 555</p>
+    <infoModal 
+      v-model="showHelp" 
+      :information="{version: version, moment: buildMoment}"/>
 
-            <h3>ความสามารถของเว็บไซต์</h3>
-            <p>เว็บไซต์นี้ มีไว้เพื่อตรวจสอบวันและเวลาที่เราได้คบกันมา โดยมีความสามารถดังนี้</p>
-            <ul>
-              <li>พื้นหลังเป็นรูป และยัง<span class="highlight">สามารถคลิกเพื่อดูทั้งอัลบัมได้</span></li>
-              <li>เวลาจะเพิ่มขึ้นเรื่อยๆ นับตั้งแต่วันที่ 4 มกราคม 2561 เป็นต้นมา</li>
-              <li>ผู้ใช้งานเว็บสามารถกดโหวตความชอบได้ ผ่านการกดที่ปุ่ม 2 ปุ่ม <span class="highlight">ผู้ที่โหวตแล้ว ไม่สามารถโหวตซ้ำได้อีก</span></li>
-              <li>ผู้ใช้งานเว็บไซต์สามารถเลือกรูปพื้นหลังได้เอง <span class="highlight"/>
-                <ul>
-                  <li>โดยดูตัวเลขที่อัลบัม <span class="highlight">1~n</span></li>
-                  <li>เพิ่มตัวเลขที่ได้มาที่ link ตามรูปแบบนี้ <code>?image=&lt;id&gt;</code></li>
-                  <li>ตัวอย่าง <code>https://kcnt.xyz?image=1</code></li>
-                </ul>
-              </li>
-              <li>ผู้ใช้งานสามารถเลือกข้อมูลที่จะโชว์ได้
-                <ul>
-                  <li>โดยเพิ่มสิ่งที่ต้องการจะโชว์ไปยัง link ดังนี้ <code>?show=&lt;code&gt;</code> โดย code ที่เป็นไปได้คือ
-                    <ul>
-                      <li><code>Yr</code> - จำนวนปีที่คบกัน</li>
-                      <li><code>Mt</code> - จำนวนเดือนที่คบกัน (ถ้าครบปีจะถูกปรับเป็น 0 ใหม่)</li>
-                      <li><code>Dy</code> - จำนวนวันที่คบกัน (ถ้าครบเดือนจะถูกปรับเป็น 0 ใหม่)</li>
-                      <li><code>Hr</code> - จำนวนชั่วโมงที่คบกัน (ถ้าครบวันจะถูกปรับเป็น 0 ใหม่)</li>
-                      <li><code>Mi</code> - จำนวนนาทีที่คบกัน (ถ้าครบชั่วโมงจะถูกปรับเป็น 0 ใหม่)</li>
-                      <li><code>Sc</code> - จำนวนวินาทีที่คบกัน (ถ้าครบนาทีจะถูกปรับเป็น 0 ใหม่)</li>
-                      <li><code>Ms</code> - จำนวนเสี้ยววินาที (ms) ที่คบกัน (ถ้าครบวินาทีจะถูกปรับเป็น 0 ใหม่)</li>
-                      <li><code>Ayr</code> - จำนวนปี<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                      <li><code>Amt</code> - จำนวนเดือน<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                      <li><code>Ady</code> - จำนวนวัน<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                      <li><code>Ahr</code> - จำนวนชั่วโมง<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                      <li><code>Ami</code> - จำนวนนาที<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                      <li><code>Asc</code> - จำนวนวินาที<span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                      <li><code>Ams</code> - จำนวนเสี้ยววินาที (ms) <span class="highlight">ทั้งหมด</span>ที่คบกัน</li>
-                    </ul>
-                  </li>
-                  <li>แบนเนอร์จะเรียงตาม code ที่ต่อกัน</li>
-                  <li>ตัวอย่าง <code>https://kcnt.xyz?show=AdyHrMiSc</code></li>
-                </ul>
-              </li>
-              <li>a</li>
-            </ul>
-            <blockquote><span class="highlight">หมายเหตุ</span> ถ้ามีการต่อ link มากกว่า 1 อัน ให้เปลื่ยน <code>?</code> เป็น <code>&</code> <br>
-              เช่น <code>https://kcnt.xyz?a=a&b=b&c=c</code></blockquote>
+    <Firework 
+      v-if="onCalibrationDate" 
+      :firework-rate="fireworkRate"
+      :firework="fireworkNumber"
+      :class="{'always-top': focus === 'firework'}"
+      class="firework-area"
+      @click="galleryIndex = imageIndex" />
 
-            <h3>ข้อมูลของเว็บไซต์</h3>
-            <ul>
-              <li>เวอร์ชั่น: {{ version }}</li>
-              <li>อัพเดตเมื่อ {{ buildMoment.fromNow() }}</li>
-              <li>พัฒนาโดย คุณ<a 
-                href="https://kcnt.info/net" 
-                target="_blank">กมนทัต จันทราจีระธำรงค์</a></li>
-              <li>ออกแบบและดีไซน์โดย คุณ<a 
-                href="https://kcnt.info/prang" 
-                target="_blank">ณัชชา ไตรรัตน์ชัชวาลย์</a></li>
-              <li>โปรแกรมซอร์สโค้ด: Gitlab</li>
-            </ul>
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button 
-            class="button is-success" 
-            @click="help()">OK</button>
-        </footer>
-      </div>
-    </div>
+    <VueGallerySlideshow 
+      :images="images"
+      :index="galleryIndex" 
+      class="gallery-area" 
+      @close="closeGallery()"/>
 
-    <div 
-      v-show="hasError" 
-      class="notification-area">
-      <div class="notification is-danger">
-        <button 
-          class="delete" 
-          @click="hasError = false"/>
-        {{ error }}
-      </div>
-    </div>
+    <Notification 
+      v-model="hasError" 
+      :message="error"
+      type="danger"/>
+
+    <Notification 
+      v-model="hasSuccess" 
+      :message="success"
+      type="success"/>
 
     <div 
       class="image-area" 
       @click="galleryIndex = imageIndex" />
 
+
     <div class="center-container has-full-size">
-      <Firework v-if="onCalibrationDate" />
-      <VueGallerySlideshow 
-        :images="images" 
-        :index="galleryIndex" 
-        @close="closeGallery()"/>
-      <section class="content-area section">
-        <div class="container is-fluid">
-          <div>
-            <h1 class="title is-size-2 has-text-centered has-text-white-bis has-text-weight-semibold is-family-primary font-main">
-              KcNt <span class="important">Anniversary</span> Website <a @click="help()">?</a>
-            </h1>
+      <transition name="fade">
+        <section 
+          v-if="showBanner"
+          :class="{'always-top': focus === 'content'}" 
+          class="content-area section is-paddingless">
+          <div class="close-content-area">
+            <button 
+              class="delete is-large" 
+              @click="showBanner = false"/>
           </div>
-          <nav class="level is-marginless has-text-grey-light">
-            <div 
-              v-for="showQuery in show"
-              :key="showQuery"
-              class="level-item has-text-centered block">
-              <p class="digit font-digital is-family-primary">{{ formatDateTime(queryDateTime(showQuery)).value }}</p>
-              <p class="text font-main is-family-secondary">{{ queryDateTime(showQuery).key }}</p>
+          <div 
+            class="container is-fluid" 
+            style="margin-right: 68px;margin-left: 68px;">
+            <div class="title-container">
+              <h1 class="title is-size-2 has-text-centered has-text-white-bis has-text-weight-semibold is-family-primary font-main">
+                KcNt <span class="important">Anniversary</span> Website <a 
+                  class="always-top" 
+                  @click="showHelp = true">?</a>
+              </h1>
             </div>
-          </nav>
 
-          <nav 
-            v-if="!voted" 
-            class="level is-mobile">
-            <div class="level-item has-text-centered">
-              <div>
-                <button 
-                  :disabled="saving" 
-                  class="button is-success is-outlined is-large font-main"
-                  @click="queryFn({up: true})">Vote up ({{ onlyVoteUp.length }})!</button>
-              </div>
-            </div>
-            <div class="level-item has-text-centered">
-              <div>
-                <button
-                  :disabled="saving" 
-                  class="button is-danger is-outlined is-large font-main"
-                  @click="queryFn({down: true})">Vote down ({{ onlyVoteDown.length }})!</button>
-              </div>
-            </div>
-          </nav>
-
-          <section class="section">
-            <div class="history">
-              <div class="field is-grouped is-grouped-multiline">
-                <div 
-                  v-for="node in history" 
-                  :key="node.id" 
-                  class="control">
-                  <div class="tags has-addons">
-                    <span class="tag">{{ node.ip.country }}{{ node.ip.city ? "-"+node.ip.city : '' }}</span>
-                    <span 
-                      :class="node.voteup ? 'is-success' : 'is-danger'" 
-                      class="tag">{{ node.voteup ? "UP" : "DOWN" }}</span>
-                  </div>
+            <div class="columns is-multiline has-text-grey-light is-centered" >
+              <div 
+                v-for="showQuery in show"
+                :key="showQuery"
+                class="column is-narrow is-centered has-text-centered">
+                <div class="block">
+                  <p 
+                    :style="'color: '+queryDateTime(showQuery).color"
+                    class="digit font-digital is-family-primary">{{ formatDateTime(queryDateTime(showQuery)).value }}</p>
+                  <p 
+                    class="text font-main is-family-secondary">{{ queryDateTime(showQuery).key }}</p>
                 </div>
               </div>
             </div>
-          </section>
-        </div>
-      </section>
+
+            <nav 
+              v-if="!voted" 
+              class="level is-mobile">
+              <div class="level-item has-text-centered">
+                <div>
+                  <button 
+                    :disabled="saving" 
+                    class="button is-success is-outlined is-large font-main"
+                    @click="queryFn({up: true})">Vote up ({{ onlyVoteUp.length }})!</button>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <button
+                    :disabled="saving" 
+                    class="button is-danger is-outlined is-large font-main"
+                    @click="queryFn({down: true})">Vote down ({{ onlyVoteDown.length }})!</button>
+                </div>
+              </div>
+            </nav>
+
+            <section 
+              v-show="history.length > 0" 
+              class="section">
+              <div class="history">
+                <div class="field is-grouped is-grouped-multiline">
+                  <div 
+                    v-for="node in history" 
+                    :key="node.id" 
+                    class="control">
+                    <div class="tags has-addons">
+                      <span class="tag">{{ node.ip.country }}{{ node.ip.city ? "-"+node.ip.city : '' }}</span>
+                      <span 
+                        :class="node.voteup ? 'is-success' : 'is-danger'" 
+                        class="tag">{{ node.voteup ? "UP" : "DOWN" }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </transition>
     </div>
+
+    <button 
+      v-if="!showBanner"
+      class="fab" 
+      @click="showBanner = true">
+      <span class="plus">+</span>
+    </button>
   </div>
 </template>
 
@@ -177,17 +136,16 @@ import { queryIP } from '@/assets/apis/ip.js'
 
 import VueGallerySlideshow from 'vue-gallery-slideshow'
 import Firework from '@/components/firework.vue'
+import InfoModal from '@/components/infoModal.vue'
+import Notification from '@/components/notification.vue'
 
 export default {
   components: {
-    Firework: Firework,
+    Firework,
+    InfoModal,
+    Notification,
     VueGallerySlideshow
   },
-  // head: {
-  //   bodyAttrs: {
-  //     class: 'has-background-black-bis'
-  //   }
-  // },
   data() {
     const datingDate = moment('04 Jan 2018 23:52:00 +0700') // should be correct once.
     return {
@@ -199,18 +157,35 @@ export default {
       now: moment(),
       hasError: false,
       error: '',
+      hasSuccess: false,
+      success: '',
       datingDate,
       history: [],
       show: ['Ady', 'Hr', 'Mi', 'Sc'],
-      images: ['/poster.jpg', '/kcapstone.jpg'],
+      showColor: {},
+      images: [
+        '/poster.jpg',
+        '/gallery/01.jpg',
+        '/gallery/02.jpg',
+        '/gallery/03.jpg',
+        '/gallery/04.jpg',
+        '/gallery/05.jpg'
+      ],
       imageIndex: 0,
       showHelp: false,
       galleryIndex: null,
-      voted: false
+      voted: false,
+      refreshInterval: 1000,
+      forceFirework: false,
+      fireworkRate: undefined,
+      fireworkNumber: 6,
+      colorful: false,
+      showBanner: true
     }
   },
   computed: {
     onCalibrationDate() {
+      if (this.forceFirework) return true // force firework
       if (this.asDays % 100 === 0) return true // every 100 days (fire on 1 day only)
       if (this.years !== 0 && this.months === 0 && this.days === 0) return true // every year (fire, first day of the year)
       return false
@@ -273,28 +248,30 @@ export default {
   mounted() {
     window.setInterval(() => {
       this.now = moment()
-    }, 1000)
+    }, this.refreshInterval)
 
     const ref = this.$fireDb.ref(`vote/${this.buildDate}`)
-
-    ref.once('value').then(snapshot => {
-      this.history = []
-      snapshot.forEach(childSnapshot => {
-        this.history.push(childSnapshot.val())
-      })
-
-      const node = this.queryIPAddress()
-      if (node) this.voted = true
-    })
-
     ref.on('child_added', data => {
-      this.history.push(data.val())
+      const v = data.val()
+      if (!this.history.find(n => n.id === v.id)) this.history.push(v)
     })
+
+    if (this.show)
+      this.showColor = this.show.reduce((p, c) => {
+        p[c] = (this.colorful && this.randomColor('100%')) || 'inherite'
+        return p
+      }, {})
   },
   async asyncData(ctx) {
     const query = ctx.query
     const show = query.show
     const image = query.image
+    const interval = query.interval
+    const firework = query.firework
+    const fireworkRate = query.fireworkRate
+    const fireworkNumber = query.fireworkNumber
+    const focus = query.focus
+    const colorful = query.colorful
 
     try {
       const ip = await queryIP(ctx.app.$axios)
@@ -304,6 +281,38 @@ export default {
 
       if (show) result.show = show.split(/(?=[A-Z])/)
       if (image) result.imageIndex = parseInt(image) || 0
+      if (interval) result.refreshInterval = interval
+      if (firework === 'true' || firework === '1') result.forceFirework = true
+      if (colorful === 'true' || colorful === '1') result.colorful = true
+      if (fireworkNumber) result.fireworkNumber = parseInt(fireworkNumber) || 6
+      if (fireworkRate) result.fireworkRate = parseInt(fireworkRate) || 0
+
+      if (focus) result.focus = focus
+
+      // history setup
+      const ref = ctx.app.$fireDb.ref(`vote/${process.env.buildDate}`)
+      const snapshot = await ref.once('value')
+      if (snapshot) {
+        result.history = []
+
+        snapshot.forEach(childSnapshot => {
+          result.history.push(childSnapshot.val())
+        })
+
+        const node = result.history.find(v => {
+          return v.ip.loc === ip.loc && v.ip.ip === ip.ip
+        })
+
+        if (node) {
+          result.voted = true
+          result.hasSuccess = true
+          result.success = `You already vote our website on ${moment(
+            node.timestamp
+          ).fromNow()}`
+
+          if (!result.focus) result.focus = 'firework'
+        }
+      }
 
       return result
     } catch (e) {
@@ -324,35 +333,91 @@ export default {
     queryDateTime(query) {
       switch (query) {
         case 'Yr':
-          return { key: 'Years', value: this.years }
+          return {
+            key: 'Years',
+            value: this.years,
+            color: this.showColor[query]
+          }
         case 'Mt':
-          return { key: 'Months', value: this.months }
+          return {
+            key: 'Months',
+            value: this.months,
+            color: this.showColor[query]
+          }
         case 'Dy':
-          return { key: 'Days', value: this.days }
+          return { key: 'Days', value: this.days, color: this.showColor[query] }
         case 'Hr':
-          return { key: 'Hours', value: this.hours }
+          return {
+            key: 'Hours',
+            value: this.hours,
+            color: this.showColor[query]
+          }
         case 'Mi':
-          return { key: 'Minutes', value: this.minutes }
+          return {
+            key: 'Minutes',
+            value: this.minutes,
+            color: this.showColor[query]
+          }
         case 'Sc':
-          return { key: 'Seconds', value: this.seconds }
+          return {
+            key: 'Seconds',
+            value: this.seconds,
+            color: this.showColor[query]
+          }
         case 'Ms':
-          return { key: 'Milliseconds', value: this.milliseconds }
+          return {
+            key: 'Milliseconds',
+            value: this.milliseconds,
+            color: this.showColor[query]
+          }
         case 'Ayr':
-          return { key: 'Years', value: this.asYears }
+          return {
+            key: 'Years',
+            value: this.asYears,
+            color: this.showColor[query]
+          }
         case 'Amt':
-          return { key: 'Months', value: this.asMonths }
+          return {
+            key: 'Months',
+            value: this.asMonths,
+            color: this.showColor[query]
+          }
         case 'Ady':
-          return { key: 'Days', value: this.asDays }
+          return {
+            key: 'Days',
+            value: this.asDays,
+            color: this.showColor[query]
+          }
         case 'Ahr':
-          return { key: 'Hours', value: this.asHours }
+          return {
+            key: 'Hours',
+            value: this.asHours,
+            color: this.showColor[query]
+          }
         case 'Ami':
-          return { key: 'Minutes', value: this.asMinutes }
+          return {
+            key: 'Minutes',
+            value: this.asMinutes,
+            color: this.showColor[query]
+          }
         case 'Asc':
-          return { key: 'Seconds', value: this.asSeconds }
+          return {
+            key: 'Seconds',
+            value: this.asSeconds,
+            color: this.showColor[query]
+          }
         case 'Ams':
-          return { key: 'Milliseconds', value: this.asMilliseconds }
+          return {
+            key: 'Milliseconds',
+            value: this.asMilliseconds,
+            color: this.showColor[query]
+          }
         default:
-          return { key: 'Date', value: this.dateDuration }
+          return {
+            key: 'Date',
+            value: this.dateDuration,
+            color: this.showColor[query]
+          }
       }
     },
     formatDateTime(obj, number) {
@@ -385,7 +450,7 @@ export default {
         if (node) {
           this.voted = true
           throw new Error(
-            `You already voted (${moment(node.timestamp).toLocaleString()})!`
+            `You already voted (${moment(node.timestamp).fromNow()})!`
           )
         }
 
@@ -399,44 +464,55 @@ export default {
 
         this.id = id
         this.voted = true
+
+        this.hasSuccess = true
+        this.success = 'Thank you for voting our website'
       } catch (e) {
         this.error = e.toString()
         this.hasError = true
-        this.delayError()
       }
       this.saving = false
     },
     closeGallery() {
-      console.log(this.galleryIndex)
       this.galleryIndex = null
     },
-    help() {
-      this.showHelp = !this.showHelp
-    },
-    delayError(ms) {
-      window.setTimeout(() => {
-        this.hasError = false
-      }, ms || 5000) // default 5 seconds
+    randomColor(opt) {
+      const h = Math.floor(Math.random() * 360)
+      const s = '100%'
+      const l = (opt && opt.light) || '50%'
+      return `hsla(${h}, ${s}, ${l}, 1)`
     }
   }
 }
 </script>
 
 <style scoped>
+.always-top {
+  z-index: 9997 !important;
+}
+
 .modal {
   z-index: 9999;
 }
 
-.notification-area {
+.firework-area {
   z-index: 1000;
+}
+
+.notification-area {
+  z-index: 1001;
   position: absolute;
   right: 0;
   left: 0;
   bottom: 0;
 }
 
+.gallery-area {
+  z-index: 9998;
+}
+
 .image-area {
-  z-index: 0;
+  z-index: 1000;
   position: absolute;
   right: 0;
   left: 0;
@@ -445,10 +521,21 @@ export default {
 }
 
 .content-area {
-  z-index: 500;
+  z-index: 1101;
   background-color: black;
   opacity: 0.75;
   border-radius: 30px;
+  padding: 1.2rem !important;
+}
+
+.close-content-area {
+  z-index: 1102;
+  float: right;
+  display: block;
+}
+
+.title-container {
+  margin-bottom: 2rem;
 }
 
 .section {
@@ -476,7 +563,8 @@ export default {
 .block {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: auto;
+  width: 215px;
 }
 
 .text {
@@ -502,11 +590,39 @@ export default {
   text-align: start;
 }
 
-.highlight {
-  color: #ff3333;
+.fab {
+  z-index: 1200;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  border-radius: 50px;
+  text-align: center;
+
+  background-color: #60c1e8;
+  color: #fff;
+  box-shadow: 2px 2px 3px #999;
 }
 
-.highlight:hover {
-  color: #e60000;
+.fab-button {
+  width: 100%;
+  height: 100%;
+}
+
+.plus {
+  text-align: center;
+  font-size: 50px;
+  line-height: 0.5;
+}
+</style>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
