@@ -1,10 +1,67 @@
 <template>
   <div>
     <notifications 
-      group="vote" 
+      :max="3" 
+      group="vote"
       position="bottom right"
-      width="100%"
-      max="3" />
+      width="100%" />
+
+    <v-modal 
+      :scrollable="true" 
+      name="password"
+      width="80%"
+      height="auto"
+      @closed="closed">
+      <section class="section">
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Username</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <input 
+                  v-model="username"
+                  class="input" 
+                  type="username" 
+                  placeholder="Username">
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Password</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <input 
+                  v-model="password"
+                  class="input" 
+                  type="password" 
+                  placeholder="Password">
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label"/>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <button 
+                  class="button is-primary" 
+                  @click="submitVote()">
+                  Send vote
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </v-modal>
 
     <div 
       :style="'background-image: url(\''+images[imageIndex]+'\');'" 
@@ -101,7 +158,7 @@
                       :key="node.id" 
                       class="control">
                       <div class="tags has-addons">
-                        <span class="tag">{{ node.ip.country }}{{ node.ip.city ? "-"+node.ip.city : '' }}</span>
+                        <span class="tag">{{ node.user || node.ip.country }}{{ node.ip.city ? "-"+node.ip.city : '' }}</span>
                         <span 
                           :class="node.voteup ? 'is-success' : 'is-danger'" 
                           class="tag">{{ node.voteup ? "UP" : "DOWN" }}</span>
@@ -148,6 +205,7 @@ export default {
       buildDate: process.env.buildDate,
       version: process.env.version,
       saving: false,
+      voteup: false,
       id: '',
       ipaddress: {},
       now: moment(),
@@ -155,6 +213,8 @@ export default {
       notifyType: '',
       notifyTitle: '',
       notifyText: '',
+      username: '',
+      password: '',
       datingDate,
       history: [],
       show: ['Ady', 'Hr', 'Mi', 'Sc'],
@@ -441,23 +501,43 @@ export default {
           )
       })
     },
-    async queryFn(query) {
+    submitVote() {
+      if (this.password === 'kcnt-anniversary') {
+        this.saving = false
+        this.queryFn({ up: this.voteup, down: !this.voteup }, { force: true })
+      } else {
+        this.voted = true
+      }
+
+      this.$modal.hide('password')
+    },
+    isNodeExist() {
+      return this.queryIPAddress() !== undefined
+    },
+    closed() {
+      if (!this.password) this.voted = true
+    },
+    async queryFn(query, opts) {
+      if (!opts) opts = {}
+
       this.saving = true
+      this.voteup = query.up
+
+      const ref = this.$fireDb.ref(`vote/${this.buildDate}`)
 
       const date = +new Date()
       const _id = date - this.buildDate
       const postID = `${crypto.randomBytes(2).toString('hex')}`
       const id = `KCNT${_id}p${postID}`.toUpperCase()
-      const ref = this.$fireDb.ref(`vote/${this.buildDate}`)
-
-      const node = this.queryIPAddress()
 
       try {
-        if (node) {
+        if (!opts.force && this.isNodeExist()) {
+          this.$modal.show('password')
+          return
           // this.voted = true
-          throw new Error(
-            `You already voted (${moment(node.timestamp).fromNow()})!`
-          )
+          // throw new Error(
+          //   `You already voted (${moment(node.timestamp).fromNow()})!`
+          // )
         }
 
         const newRef = ref.push()
@@ -465,6 +545,7 @@ export default {
           id: id,
           voteup: (query && query.up) || (query && !query.down),
           ip: this.ipaddress,
+          user: this.username,
           timestamp: date
         })
 
@@ -498,143 +579,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.always-top {
-  z-index: 9997 !important;
-}
-
-.modal {
-  z-index: 9999;
-}
-
-.firework-area {
-  z-index: 1000;
-}
-
-.notification-area {
-  z-index: 1001;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0;
-}
-
-.gallery-area {
-  z-index: 9998;
-}
-
-.image-area {
-  z-index: 1000;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  top: 0;
-}
-
-.content-area {
-  z-index: 1101;
-  background-color: black;
-  opacity: 0.75;
-  border-radius: 30px;
-  padding: 1.2rem !important;
-}
-
-.close-content-area {
-  z-index: 1102;
-  float: right;
-  display: block;
-}
-
-.title-container {
-  margin-bottom: 2rem;
-}
-
-.section {
-  min-width: 80vw;
-}
-
-.countdown {
-  display: flex;
-}
-
-.poster {
-  height: 100vh;
-  width: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.poster-background {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.block {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 280px;
-}
-
-.text {
-  font-size: 20px;
-  font-weight: 40;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-  line-height: 0.85;
-}
-
-.digit {
-  color: #60c1e8;
-  font-size: 5rem;
-  text-align: center;
-}
-
-.important:hover {
-  color: #ff3333;
-}
-
-.history {
-  text-align: start;
-}
-
-.fab {
-  z-index: 1200;
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  right: 40px;
-  border-radius: 50px;
-  text-align: center;
-
-  background-color: #60c1e8;
-  color: #fff;
-  box-shadow: 2px 2px 3px #999;
-}
-
-.fab-button {
-  width: 100%;
-  height: 100%;
-}
-
-.plus {
-  text-align: center;
-  font-size: 50px;
-  line-height: 0.5;
-}
+<style src="./index.scss" lang="scss" scoped>
 </style>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
+<style src="./index.transform.scss" lang="scss" scoped>
 </style>
