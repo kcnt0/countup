@@ -8,14 +8,14 @@
       <div class="modal-background"/>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">KcNt Anniversary</p>
+          <p class="font-main modal-card-title">KcNt Anniversary</p>
           <button 
             class="delete"
             aria-label="close" 
             @click="help()"/>
         </header>
         <section class="modal-card-body">
-          <div class="content">
+          <div class="content font-thai" >
             <h1>จุดเริ่มต้น</h1>
             <p>เว็บไซต์นี้ สร้างเพื่อความพอใจส่วนตัวล้วนๆ และได้ถูกสร้างขึ้นในเดือนที่ครบรอบ 1 ปีพอดี ตั้งแต่วันที่ <span class="highlight">04 มกราคม 2561</span> ตอนประมาณ 23:52 (+0700) ที่เราได้ตกลงมาเป็นแฟนกัน</p>
 
@@ -131,7 +131,7 @@
               <div>
                 <button 
                   :disabled="saving" 
-                  class="button is-success is-outlined is-large"
+                  class="button is-success is-outlined is-large font-main"
                   @click="queryFn({up: true})">Vote up ({{ onlyVoteUp.length }})!</button>
               </div>
             </div>
@@ -139,7 +139,7 @@
               <div>
                 <button
                   :disabled="saving" 
-                  class="button is-danger is-outlined is-large"
+                  class="button is-danger is-outlined is-large font-main"
                   @click="queryFn({down: true})">Vote down ({{ onlyVoteDown.length }})!</button>
               </div>
             </div>
