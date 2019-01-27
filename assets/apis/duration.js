@@ -4,7 +4,7 @@ moment.locale('th')
 const anniversary = moment({
   year: 2018,
   month: 0,
-  date: 4,
+  date: 3,
   hour: 23,
   minute: 52,
   second: 7,
