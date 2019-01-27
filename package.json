@@ -5,7 +5,8 @@
   "author": "Kamontat Chantrachirathumrong",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt dev",
+    "dev:g": "nuxt dev --hostname 0.0.0.0",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -15,8 +16,9 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "5.3.6",
-    "@nuxtjs/bulma": "1.2.0",
+    "@nuxtjs/google-analytics": "2.0.2",
     "ava": "1.1.0",
+    "bulma": "0.7.2",
     "firebase": "5.8.1",
     "jsdom": "13.2.0",
     "moment": "2.24.0",

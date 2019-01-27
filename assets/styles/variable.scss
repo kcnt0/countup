@@ -1,0 +1,103 @@
+$black:        hsl(0, 0%, 20%);
+$black-bis:    hsl(0, 0%, 27%);
+$black-ter:    hsl(0, 0%, 35%);
+
+$grey-darker:  hsl(0, 0%, 40%);
+$grey-dark:    hsl(0, 0%, 51%);
+$grey:         hsl(0, 0%, 64%);
+$grey-light:   hsl(0, 0%, 71%);
+$grey-lighter: hsl(0, 0%, 86%);
+
+$white-ter:    hsl(0, 0%, 94%);
+$white-bis:    hsl(0, 0%, 96%);
+$white:        hsl(0, 0%, 98%);
+
+$orange:       hsl(14,  100%, 53%);
+$yellow:       #FFE97F;
+$yellow-dark:  #FFD300;
+$green:        #96DFA9;
+$green-dark:   #2CBE4E;
+$turquoise:    hsl(171, 100%, 41%);
+$cyan:         hsl(204, 86%,  53%);
+$blue:         #60C1E8;
+$blue-dark:    #4C9AB9;
+$purple:       hsl(271, 100%, 71%);
+$red:          #FF3333;
+$red-dark:     #E60000;
+$pink:         #FFA6C9;
+$pink-dark:    #FE5BAC;
+
+@import '~bulma/sass/utilities/initial-variables';
+@import '~bulma/sass/utilities/functions';
+
+// ------------------------------------------ //
+// Font family                                //
+// ------------------------------------------ //
+
+$font-family-english: 'Source Sans Pro',
+sans-serif;
+$font-family-thai: 'Maitree',
+sans-serif;
+$font-family-number: 'Orbitron',
+sans-serif;
+
+// ------------------------------------------ //
+// Font size                                  //
+// ------------------------------------------ //
+
+$title-size: 5rem;
+$text-size: 1.7rem;
+
+// ------------------------------------------ //
+// Color                                      //
+// ------------------------------------------ //
+
+$primary: $blue;
+$secondary: $pink;
+$link: $turquoise;
+$info: $cyan;
+$success: $green;
+$warning: $yellow;
+$danger: $red;
+
+$dark: $black;
+$text: $grey-lighter;
+
+$content-heading-color: white-ter;
+
+// ------------------------------------------ //
+// Layout                                     //
+// ------------------------------------------ //
+
+$gap-f-1: 12px; // fix
+$gap-f-2: 24px; // fix
+$gap-f-3: 36px; // fix
+$gap-f-4: 48px; // fix
+
+$gap-1: 0.5rem; // dynamic
+$gap-2: 0.75rem; // dynamic
+$gap-3: 1.3rem; // dynamic
+$gap-4: 2.1rem; // dynamic
+$gap-5: 2.6rem; // dynamic
+$gap-6: 3rem; // dynamic
+
+$round-a: 14px;
+$round-b: 50px;
+$round: 9999px;
+
+// ------------------------------------------ //
+// Bulma variable                             //
+// ------------------------------------------ //
+
+// Set your brand colors
+$purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+// Update Bulma's global variables
+$family-sans-serif: $font-family-english;
+
+// Update some of Bulma's component variables
+$body-background-color: $dark;

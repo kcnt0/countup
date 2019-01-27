@@ -57,7 +57,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['~/assets/styles/font.scss'],
+  css: ['~/assets/styles/font.scss', '~/assets/styles/bulma.scss'],
 
   /*
    ** Plugins to load before mounting the App
@@ -82,11 +82,11 @@ module.exports = {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/axios',
-    // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    '@nuxtjs/bulma'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/google-analytics'],
+
+  'google-analytics': {
+    id: 'UA-124896160-5'
+  },
 
   /*
    ** Build configuration

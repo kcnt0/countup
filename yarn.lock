@@ -1131,19 +1131,19 @@
     axios-retry "^3.1.1"
     consola "^1.4.4"
 
-"@nuxtjs/bulma@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/bulma/-/bulma-1.2.0.tgz#c558a01e78252046b9efa7aa642616dc8725c0a5"
-  integrity sha1-xVigHnglIEa576eqZCYW3IclwKU=
-  dependencies:
-    bulma "^0.7.1"
-
 "@nuxtjs/devalue@^1.1.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/devalue/-/devalue-1.2.0.tgz#f3f40c4678916a7159b9e43e9cef57db0390538f"
   integrity sha512-k5PwF2YD4BPqvNyDGUMZKx2nqMiqyz+9NqBKuhWYl+D5sElct/19Cos8X2qcxFze1u7nW7OZ+oYmkgibP9TK8g==
   dependencies:
     consola "^2.3.0"
+
+"@nuxtjs/google-analytics@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/google-analytics/-/google-analytics-2.0.2.tgz#75353143628fd7697b41eb5aa7da38a513394eca"
+  integrity sha512-NpDQI7w4jr93Ukh98n3d0BRDHhX7cDUi3W2E0CAU6t5wmC+Q6cwQMqcEl32tGJBQlPZYWSrBKIM0A413HpL3TA==
+  dependencies:
+    vue-analytics "^5.4.0"
 
 "@nuxtjs/opencollective@^0.2.0":
   version "0.2.1"
@@ -2120,7 +2120,7 @@ builtin-status-codes@^3.0.0:
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
 
-bulma@^0.7.1:
+bulma@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.2.tgz#8e944377b74c7926558830d38d8e19eaf49f5fb6"
   integrity sha512-6JHEu8U/1xsyOst/El5ImLcZIiE2JFXgvrz8GGWbnDLwTNRPJzdAM0aoUM1Ns0avALcVb6KZz9NhzmU53dGDcQ==
@@ -9257,6 +9257,11 @@ vm-browserify@0.0.4:
   integrity sha1-XX6kW7755Kb/ZflUOOCofDV9WnM=
   dependencies:
     indexof "0.0.1"
+
+vue-analytics@^5.4.0:
+  version "5.16.2"
+  resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.16.2.tgz#37724aeec71bb830b1cf2d52a969cf190ef120c1"
+  integrity sha512-5JKGnVF33VHlXFREzht9z3Z11N4IA8vXNnpvYeAf72rEUyAuuU9Q9kX34bULW2CxMrahr8m06IB8+91GX0Ruag==
 
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
