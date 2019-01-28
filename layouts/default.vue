@@ -16,6 +16,39 @@
         </nuxt-link>
 
         <nuxt-link 
+          v-tooltip.bottom="'clock'" 
+          to="/beta/watch">
+          <fa 
+            :class="[$style.iconLink, $style.iconWatch]"
+            :mask="['fas', 'circle']"
+            :icon="['far', 'clock']" 
+            size="3x"
+            transform="shrink-7"/>
+        </nuxt-link>
+
+        <nuxt-link
+          v-tooltip.bottom="'gallery'" 
+          to="/beta/gallery">
+          <fa 
+            :class="[$style.iconLink, $style.iconGallery]"
+            :mask="['fas', 'circle']"
+            :icon="['fas', 'images']" 
+            size="3x"
+            transform="shrink-7"/>
+        </nuxt-link>
+
+        <!-- <nuxt-link 
+          v-tooltip.bottom="'history'" 
+          to="/beta/history">
+          <fa 
+            :class="[$style.iconLink, $style.iconVotes]"
+            :mask="['fas', 'circle']"
+            :icon="['fas', 'history']" 
+            size="3x"
+            transform="shrink-6"/>
+        </nuxt-link> -->
+
+        <nuxt-link 
           v-tooltip.bottom="'vote!'" 
           to="/beta/vote">
           <fa 
@@ -36,39 +69,6 @@
             size="3x"
             transform="shrink-6"/>
         </nuxt-link>
-
-        <nuxt-link 
-          v-tooltip.bottom="'history'" 
-          to="/beta/history">
-          <fa 
-            :class="[$style.iconLink, $style.iconVotes]"
-            :mask="['fas', 'circle']"
-            :icon="['fas', 'history']" 
-            size="3x"
-            transform="shrink-6"/>
-        </nuxt-link>
-
-        <nuxt-link
-          v-tooltip.bottom="'gallery'" 
-          to="/beta/gallery">
-          <fa 
-            :class="[$style.iconLink, $style.iconGallery]"
-            :mask="['fas', 'circle']"
-            :icon="['fas', 'images']" 
-            size="3x"
-            transform="shrink-7"/>
-        </nuxt-link>
-
-        <nuxt-link 
-          v-tooltip.bottom="'clock'" 
-          to="/beta/watch">
-          <fa 
-            :class="[$style.iconLink, $style.iconWatch]"
-            :mask="['fas', 'circle']"
-            :icon="['far', 'clock']" 
-            size="3x"
-            transform="shrink-7"/>
-        </nuxt-link>
       </div>
       <div 
         :class="[$style.arrowDown, mountLink ? $style.clean:'']" 
@@ -88,7 +88,7 @@
           :class="[$style.iconLink, $style.iconFacebook, $style.iconNet]"
           :mask="['fas', 'circle']"
           :icon="['fab', 'facebook-f']" 
-          size="3x"
+          size="2x"
           transform="shrink-3.5 down-1.4 right-0.55"/>
       </a>
 
@@ -100,7 +100,7 @@
           :class="[$style.iconLink, $style.iconFacebook, $style.iconPrang]" 
           :mask="['fas', 'circle']"
           :icon="['fab', 'facebook-f']" 
-          size="3x"
+          size="2x"
           transform="shrink-3.5 down-1.4 right-0.55"/>
       </a>
     </div>
@@ -231,20 +231,98 @@ export default {
 }
 </style>
 
+<style lang="scss">
+.tooltip {
+  display: block !important;
+  z-index: 10000;
 
-<style>
-.center-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-right: auto;
-  margin-left: auto;
-  min-height: 94vh;
-}
+  .tooltip-inner {
+    background: black;
+    color: white;
+    border-radius: 16px;
+    padding: 5px 10px 4px;
+  }
 
-.center-container.has-full-size {
-  min-height: 100vh;
-  min-width: 100vw;
+  .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: black;
+    z-index: 1;
+  }
+
+  &[x-placement^='top'] {
+    margin-bottom: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^='bottom'] {
+    margin-top: 5px;
+
+    .tooltip-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^='right'] {
+    margin-left: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 5px 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^='left'] {
+    margin-right: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 0 5px 5px;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s, visibility 0.15s;
+  }
+
+  &[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.15s;
+  }
 }
 </style>

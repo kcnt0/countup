@@ -11,7 +11,7 @@
 
 .subtitleContainer {
   text-align: center;
-  margin-bottom: $gap-5;
+  margin-bottom: $gap-8;
   margin-left: $gap-5;
   margin-right: $gap-5;
 
@@ -22,6 +22,9 @@
   border-radius: $round-a;
 
   color: $white;
+
+  min-width: 25vw;
+  min-height: 10vh;
 }
 
 .subtitleHeader {

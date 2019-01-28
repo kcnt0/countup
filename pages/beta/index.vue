@@ -94,9 +94,6 @@ export default {
 }
 </style>
 
-<style src="./index.tooltip.scss" lang="scss">
-</style>
-
 <style src="./index.transform.scss" lang="scss" scoped>
 </style>
 

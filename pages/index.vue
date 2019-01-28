@@ -18,3 +18,9 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  layout: 'dark'
+}
+</script>
