@@ -226,7 +226,7 @@ export default {
       show: ['Ady', 'Hr', 'Mi', 'Sc'],
       showColor: {},
       images: [
-        '/poster.jpg',
+        '/gallery/00.jpg',
         '/gallery/01.jpg',
         '/gallery/02.jpg',
         '/gallery/03.jpg',

@@ -14,7 +14,7 @@ export default {
     return {
       index: 0,
       images: [
-        '/poster.jpg',
+        '/gallery/00.jpg',
         '/gallery/01.jpg',
         '/gallery/02.jpg',
         '/gallery/03.jpg',

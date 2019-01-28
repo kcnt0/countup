@@ -88,6 +88,10 @@ module.exports = {
     id: 'UA-124896160-5'
   },
 
+  generate: {
+    fallback: '404.html'
+  },
+
   /*
    ** Build configuration
    */
@@ -99,12 +103,18 @@ module.exports = {
         }
       }
     },
+    extractCSS: true,
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
+    extend(config, { isDev, isClient, loaders }) {
+      if (isDev) loaders.cssModules.localIdentName = '[name]_[local]'
+      else
+        loaders.cssModules.localIdentName =
+          'kcnt__[name]_[contenthash:base64:10]'
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+      if (isDev && isClient) {
+        config.module.rules
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,

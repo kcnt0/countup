@@ -4,14 +4,13 @@
   padding: $gap-f-1;
 
   background-color: black;
-  opacity: 0.6;
-  border-radius: $round-a;
+  opacity: 0.85;
+  border-radius: $round-a
 }
 
 .watch-container {
   width: 70vw;
 
-  // display: inline-block;
   position: absolute;
   bottom: $gap-f-2;
   left: $gap-f-2;
@@ -29,9 +28,11 @@
 .watch-digit {
   font-size: 5rem;
   font-family: $font-family-number;
+  color: $yellow;
 }
 
 .watch-text {
   font-size: 1.4rem;
   font-family: $font-family-english;
+  color: $grey-light;
 }
