@@ -2,9 +2,11 @@
   <div :class="$style.root">
     <notifications 
       :max="3" 
+      :duration="-1"
+      :speed="500"
       group="vote"
       position="bottom right"
-      width="20vw" />
+      width="30vw" />
 
     <div :class="$style.container">
       <h1 class="is-size-3">What do you think about this website ? </h1>
@@ -118,8 +120,10 @@ export default {
           }
         })
 
-        if (!username || username.length < 3)
+        if (!username || username.length < 3) {
+          this.$swal.close()
           throw new Error('You must enter username at least 3 character')
+        }
 
         const ref = this.$fireDb.ref(`vote/${this.buildDate}`)
         const newRef = ref.push()
@@ -187,5 +191,13 @@ export default {
 
 .icon {
   margin-left: 6px;
+}
+</style>
+
+<style lang="scss">
+@import '@/assets/styles/variable.scss';
+
+.vue-notification {
+  font-size: $size-6;
 }
 </style>
