@@ -28,6 +28,10 @@
             :icon="['far', 'thumbs-down']" />
         </button>
       </div>
+
+      <!-- TODO: Add latest vote that someones make -->
+
+      <!-- FIXME: implement new logic of voting -->
     </div>
   </div>
 </template>
