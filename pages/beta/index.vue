@@ -1,26 +1,31 @@
 <template>
-  <transition-group 
-    name="watch-transition">
+  <Background>
     <div 
-      :key="'watch-container'"
-      :class="{'watch-container': show !== 'watch', 'watch-center-container': show === 'watch'} "
-      class="watch-setting" 
-      @click="focus('watch')">
-      <div 
-        :key="'watch-panel'" 
-        class="columns is-centered">
+      :class="$style.rootContainer" 
+      @click="mountLink = false">
+      <transition-group 
+        name="watch-transition">
         <div 
-          v-for="result in showResult"
-          :key="'watch-panel-'+result.key" 
-          class="column">
-          <p 
-            :key="'watch-'+result.key" 
-            class="watch-digit">{{ result.value }}</p>
-          <p class="watch-text">{{ result.key }}</p>
+          :key="'watch-container'"
+          :class="watchContainer"
+          @click="focus('watch')">
+          <div 
+            :key="'watch-panel'" 
+            class="columns is-centered">
+            <div 
+              v-for="result in showResult"
+              :key="'watch-panel-'+result.key" 
+              class="column">
+              <p 
+                :key="'watch-'+result.key" 
+                :class="$style.watchDigit">{{ result.value }}</p>
+              <p :class="$style.watchText">{{ result.key }}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      </transition-group>
     </div>
-  </transition-group>
+  </Background>
 </template>
 
 <script>
@@ -28,14 +33,19 @@ import moment from 'moment'
 
 import { FindDuration, ShowDuration } from '@/assets/apis/duration.js'
 
+import Background from '@/components/background.vue'
+
 export default {
-  layout: 'background',
+  components: {
+    Background
+  },
   data() {
     return {
       refreshInterval: 1000,
       watchList: ['Ady', 'Hr', 'Mi', 'Sc'],
       now: moment(),
-      show: 'nothing' // nothing, images, watch
+      show: 'nothing', // nothing, images, watch
+      mountLink: false
     }
   },
   computed: {
@@ -44,6 +54,15 @@ export default {
     },
     showResult() {
       return ShowDuration(this.duration, this.watchList)
+    },
+    watchContainer() {
+      const result = {}
+
+      result[this.$style.watchSetting] = true
+      result[this.$style.watchContainer] = this.show !== 'watch'
+      result[this.$style.watchCenterContainer] = this.show === 'watch'
+
+      return result
     }
   },
   mounted() {
@@ -61,11 +80,6 @@ export default {
 </script>
 
 <style lang="scss">
-.index-container {
-  display: flex;
-  position: relative;
-}
-
 .columns {
   width: 100%;
   height: 100%;
@@ -80,8 +94,11 @@ export default {
 }
 </style>
 
+<style src="./index.tooltip.scss" lang="scss">
+</style>
+
 <style src="./index.transform.scss" lang="scss" scoped>
 </style>
 
-<style src="./index.scss" lang="scss" scoped>
+<style src="./index.scss" lang="scss" scoped module>
 </style>

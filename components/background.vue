@@ -1,26 +1,27 @@
 <template>
   <div 
-    :style="'background-image: url(\''+images[index]+'\');'" 
+    :style="'background-image: url(\''+images[index].src+'\');'" 
     class="poster-background">
     <div class="root-container">
-      <nuxt/>
+      <slot/>
     </div>
   </div>
 </template>
 
 <script>
+import { GetImagesList } from '@/assets/apis/images.js'
+
 export default {
+  props: {
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
+    const images = GetImagesList()
     return {
-      index: 0,
-      images: [
-        '/gallery/00.jpg',
-        '/gallery/01.jpg',
-        '/gallery/02.jpg',
-        '/gallery/03.jpg',
-        '/gallery/04.jpg',
-        '/gallery/05.jpg'
-      ]
+      images
     }
   }
 }
@@ -36,8 +37,6 @@ export default {
   position: relative;
   margin-left: $gap-f-2;
   margin-right: $gap-f-2;
-  /* padding-right: 26px;
-  padding-left: 26px; */
 }
 
 .poster-background {

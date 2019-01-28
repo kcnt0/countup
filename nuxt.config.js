@@ -84,6 +84,9 @@ module.exports = {
     },
     {
       src: '~plugins/lazyload.js'
+    },
+    {
+      src: '~plugins/tooltip.js'
     }
   ],
 
@@ -112,6 +115,10 @@ module.exports = {
       {
         set: '@fortawesome/free-regular-svg-icons',
         icons: ['far']
+      },
+      {
+        set: '@fortawesome/free-brands-svg-icons',
+        icons: ['fab']
       }
     ]
   },
@@ -139,7 +146,7 @@ module.exports = {
       if (isDev) loaders.cssModules.localIdentName = '[name]_[local]'
       else
         loaders.cssModules.localIdentName =
-          'kcnt__[name]_[contenthash:base64:10]'
+          'kcnt__[name]_[contenthash:base64:18]'
       // Run ESLint on save
       if (isDev && isClient) {
         config.module.rules

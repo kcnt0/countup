@@ -95,7 +95,6 @@
         class="image-area" 
         @click="galleryIndex = imageIndex" />
 
-
       <div class="center-container has-full-size">
         <transition name="fade">
           <section 

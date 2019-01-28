@@ -9,7 +9,7 @@
       width="30vw" />
 
     <div :class="$style.container">
-      <h1 class="is-size-3">What do you think about this website ? </h1>
+      <h1 class="title is-3">What do you think about this website ? </h1>
       <div :class="$style.voteContainer">
         <button 
           :class="$style.vote"
