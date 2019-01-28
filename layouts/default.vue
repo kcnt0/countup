@@ -85,7 +85,7 @@
         href="https://facebook.com/kamontatc"
         target="_blank">
         <fa 
-          :class="[$style.iconLink, $style.iconFacebook]"
+          :class="[$style.iconLink, $style.iconFacebook, $style.iconNet]"
           :mask="['fas', 'circle']"
           :icon="['fab', 'facebook-f']" 
           size="3x"
@@ -97,7 +97,7 @@
         href="https://facebook.com/pprangnt"
         target="_blank">
         <fa 
-          :class="[$style.iconLink, $style.iconFacebook]" 
+          :class="[$style.iconLink, $style.iconFacebook, $style.iconPrang]" 
           :mask="['fas', 'circle']"
           :icon="['fab', 'facebook-f']" 
           size="3x"
@@ -177,10 +177,14 @@ export default {
 .iconFacebook {
   color: $white;
   background-color: $black;
+}
 
-  &:hover {
-    color: #3b5998;
-  }
+.iconNet:hover {
+  color: $net-color;
+}
+
+.iconPrang:hover {
+  color: $prang-color;
 }
 
 .iconVote,
