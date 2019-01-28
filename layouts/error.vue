@@ -8,10 +8,15 @@
       viewBox="0 0 48 48">
       <path d="M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z" />
     </svg> -->
-    <h1 :class="$style.title">404 Not found</h1>
-    <h4 :class="$style.subtitle">feel free to go back to <nuxt-link 
-      :class="$style.link" 
-      to="/">main page</nuxt-link></h4>
+    <div :class="$style.content">
+      <h1 :class="$style.title">{{ error.statusCode }} Error occurred</h1>
+      <h4 :class="$style.subtitle">feel free to go back to <nuxt-link 
+        :class="$style.link" 
+        to="/">main page</nuxt-link></h4>
+
+      <small>{{ error.message }}</small>
+    </div>
+    
   </div>
 </template>
 
@@ -33,6 +38,16 @@ export default {
 
 <style lang="scss" module>
 @import '@/assets/styles/variable.scss';
+
+.content {
+  background-color: $black;
+  color: $white;
+  border-radius: $round-a;
+
+  padding: $gap-f-2;
+
+  opacity: 0.8;
+}
 
 .title {
   font-size: $size-1;

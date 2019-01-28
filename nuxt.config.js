@@ -57,7 +57,11 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['~/assets/styles/font.scss', '~/assets/styles/bulma.scss'],
+  css: [
+    '~/assets/styles/font.scss',
+    '~/assets/styles/bulma.scss'
+    // 'vue-image-lightbox/dist/vue-image-lightbox.min.css'
+  ],
 
   /*
    ** Plugins to load before mounting the App
@@ -71,6 +75,12 @@ module.exports = {
     },
     {
       src: '~plugins/notification.js'
+    },
+    {
+      src: '~plugins/sliceshow.js'
+    },
+    {
+      src: '~plugins/lazyload.js'
     }
   ],
 
