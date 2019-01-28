@@ -54,8 +54,9 @@ export default {
   asyncData({ query }) {
     const data = {}
 
-    if (query.autoplay) data.autoplay = query.autoplay
-    if (query.speed) data.autoplaySpeed = query.speed
+    if (query.autoplay)
+      data.autoplay = query.autoplay === 'true' || query.autoplay === '1'
+    if (query.speed) data.autoplaySpeed = parseInt(query.speed)
     if (query.dot) data.dot = query.dot !== 'false' && query.dot !== '0'
     if (query.arrow) data.arrow = query.arrow !== 'false' && query.arrow !== '0'
 

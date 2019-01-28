@@ -74,6 +74,9 @@ module.exports = {
       src: '~plugins/vue-modal.js'
     },
     {
+      src: '~plugins/modal.js'
+    },
+    {
       src: '~plugins/notification.js'
     },
     {
@@ -92,10 +95,25 @@ module.exports = {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/google-analytics'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/google-analytics', 'nuxt-fontawesome'],
 
   'google-analytics': {
     id: 'UA-124896160-5'
+  },
+
+  fontawesome: {
+    component: 'fa',
+    imports: [
+      //import whole set
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      },
+      {
+        set: '@fortawesome/free-regular-svg-icons',
+        icons: ['far']
+      }
+    ]
   },
 
   generate: {
