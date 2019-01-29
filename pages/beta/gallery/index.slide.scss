@@ -1,4 +1,8 @@
-$arrow-size: 20vw;
+@import '@/assets/styles/variable.scss';
+
+$arrow-size: 40vw;
+$arrow-size-desktop: 20vw;
+
 $dot-size: 15px;
 
 .agile {
@@ -11,6 +15,12 @@ $dot-size: 15px;
     transform: translateX(-50%);
 
     // width: $dot-size;
+  }
+
+  @include touch {
+    &__dots {
+      display: none;
+    }
   }
 
   &__dot {
@@ -57,12 +67,14 @@ $dot-size: 15px;
       right: 0;
     }
 
-    &:hover {
-      background-color: rgba(#000, 0.2);
+    @include desktop {
+      &:hover {
+        background-color: rgba(#000, 0.2);
 
-      svg {
-        display: inline-block;
-        width: 50px;
+        svg {
+          display: inline-block;
+          width: 50px;
+        }
       }
     }
 
@@ -72,6 +84,12 @@ $dot-size: 15px;
 
     svg {
       display: none;
+    }
+  }
+
+  @include desktop {
+    &__arrow {
+      width: $arrow-size-desktop;
     }
   }
 }

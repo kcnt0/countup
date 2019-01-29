@@ -75,34 +75,39 @@
         @click="mountLink = !mountLink"/>
     </div>
     
-    <div @click="mountLink = false">
+    <div @click="mountLink = false; mountSocial = false">
       <nuxt/>
     </div>
 
-    <div :class="[$style.socialMedia, $style.rightContainer]">
-      <a 
-        v-tooltip.auto="'kamontat'"
-        href="https://facebook.com/kamontatc"
-        target="_blank">
-        <fa 
-          :class="[$style.iconLink, $style.iconFacebook, $style.iconNet]"
-          :mask="['fas', 'circle']"
-          :icon="['fab', 'facebook-f']" 
-          size="2x"
-          transform="shrink-3.5 down-1.4 right-0.55"/>
-      </a>
+    <div :class="[$style.socialMedia, $style.footerContainer, mountSocial ? $style.active:'']">
+      <div 
+        :class="[$style.arrowLeft, mountSocial ? $style.clean:'']" 
+        @click="mountSocial = !mountSocial"/>
+      <div :class="$style.socialContainer">
+        <a 
+          v-tooltip.auto="'kamontat'"
+          href="https://facebook.com/kamontatc"
+          target="_blank">
+          <fa 
+            :class="[$style.iconLink, $style.iconFacebook, $style.iconNet]"
+            :mask="['fas', 'circle']"
+            :icon="['fab', 'facebook-f']" 
+            size="2x"
+            transform="shrink-3.5 down-1.4 right-0.55"/>
+        </a>
 
-      <a 
-        v-tooltip.auto="'natcha'"
-        href="https://facebook.com/pprangnt"
-        target="_blank">
-        <fa 
-          :class="[$style.iconLink, $style.iconFacebook, $style.iconPrang]" 
-          :mask="['fas', 'circle']"
-          :icon="['fab', 'facebook-f']" 
-          size="2x"
-          transform="shrink-3.5 down-1.4 right-0.55"/>
-      </a>
+        <a 
+          v-tooltip.auto="'natcha'"
+          href="https://facebook.com/pprangnt"
+          target="_blank">
+          <fa 
+            :class="[$style.iconLink, $style.iconFacebook, $style.iconPrang]" 
+            :mask="['fas', 'circle']"
+            :icon="['fab', 'facebook-f']" 
+            size="2x"
+            transform="shrink-3.5 down-1.4 right-0.55"/>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -111,7 +116,8 @@
 export default {
   data() {
     return {
-      mountLink: false
+      mountLink: false,
+      mountSocial: false
     }
   }
 }
@@ -133,23 +139,15 @@ export default {
   z-index: 10;
 }
 
-.rightContainer {
-  position: fixed;
-  right: $gap-f-1;
-
-  display: flex;
-
-  z-index: 10;
-}
-
 .pageContainer {
   padding-top: $gap-f-1;
 }
 
 .pages {
   top: -70px;
+  min-width: 415px;
 
-  transition: all 0.5s ease;
+  transition: all 0.6s ease;
 
   &.active {
     top: 0;
@@ -163,8 +161,36 @@ export default {
   }
 }
 
+.footerContainer {
+  position: fixed;
+  display: flex;
+  z-index: 10;
+}
+
+.socialContainer {
+  display: flex;
+}
+
 .socialMedia {
-  bottom: $gap-f-2;
+  right: -83px;
+
+  &.active {
+    right: $gap-f-0;
+  }
+
+  transition: all 0.6s ease;
+}
+
+@include mobile {
+  .socialMedia {
+    bottom: 2px;
+  }
+}
+
+@include tablet {
+  .socialMedia {
+    bottom: $gap-f-2;
+  }
 }
 
 .iconLink {
@@ -219,7 +245,28 @@ export default {
 
   opacity: 0.3;
 
-  transition: all 0.5s ease;
+  transition: all 0.6s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.clean {
+    opacity: 0;
+  }
+}
+
+.arrowLeft {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+
+  border-right: 20px solid #000;
+
+  opacity: 0.3;
+
+  transition: all 0.6s ease;
 
   &:hover {
     opacity: 1;

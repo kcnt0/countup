@@ -27,6 +27,12 @@
   min-height: 10vh;
 }
 
+@include mobile {
+  .subtitleContainer {
+    margin-bottom: $gap-5;
+  }
+}
+
 .subtitleHeader {
   color: $white;
 }

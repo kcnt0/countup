@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-right: auto;
-  margin-left: auto;
+  // margin-right: auto;
+  // margin-left: auto;
   min-height: 94vh;
 }
 
@@ -21,13 +21,28 @@
   border-radius: $round-a
 }
 
-.watchContainer {
-  width: 70vw;
-  height: 20vh;
+@include mobile {
+  .watchContainer {
+    width: 100vw;
+    height: 20vh;
 
+    left: -8px;
+    bottom: $gap-f-4;
+  }
+}
+
+@include tablet {
+  .watchContainer {
+    width: 70vw;
+    height: 20vh;
+
+    left: $gap-f-2;
+    bottom: $gap-f-2;
+  }
+}
+
+.watchContainer {
   position: absolute;
-  bottom: $gap-f-2;
-  left: $gap-f-2;
 
   transition: all 1s ease 0s;
 }
@@ -39,14 +54,36 @@
   transition: all 1s ease 0s;
 }
 
+@include mobile {
+  .watchDigit {
+    font-size: 1.5em;
+  }
+}
+
+@include tablet {
+  .watchDigit {
+    font-size: 5em;
+  }
+}
+
 .watchDigit {
-  font-size: 5rem;
   font-family: $font-family-number;
   color: $yellow;
 }
 
+@include mobile {
+  .watchText {
+    font-size: 0.8rem;
+  }
+}
+
+@include tablet {
+  .watchText {
+    font-size: 1.4rem;
+  }
+}
+
 .watchText {
-  font-size: 1.4rem;
   font-family: $font-family-english;
   color: $grey-light;
 }

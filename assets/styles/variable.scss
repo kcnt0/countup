@@ -73,10 +73,16 @@ $prang-color: $yellow;
 // Layout                                     //
 // ------------------------------------------ //
 
+$gap-f-0: 8px; // fix
 $gap-f-1: 12px; // fix
 $gap-f-2: 24px; // fix
 $gap-f-3: 36px; // fix
 $gap-f-4: 48px; // fix
+$gap-f-5: 56px; // fix
+$gap-f-6: 68px; // fix
+$gap-f-7: 72px; // fix
+$gap-f-8: 80px; // fix
+$gap-f-9: 95px; // fix
 
 $gap-1: 0.5rem; // dynamic
 $gap-2: 0.75rem; // dynamic
@@ -108,3 +114,7 @@ $family-sans-serif: $font-family-english;
 
 // Update some of Bulma's component variables
 $body-background-color: $light;
+
+@import '~bulma/sass/utilities/derived-variables';
+
+@import '~bulma/sass/utilities/mixins';
