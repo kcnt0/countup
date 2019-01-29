@@ -55,8 +55,8 @@ git tag "$version" >/dev/null
 
 echo "completed"
 
-printf "create new tag   -- "
+printf "push code        -- "
 
-git push && git push --tags >/dev/null
+git push && git push --tags &>/dev/null
 
 echo "completed"
