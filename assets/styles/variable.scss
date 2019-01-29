@@ -41,6 +41,10 @@ sans-serif;
 $font-family-number: 'Orbitron',
 sans-serif;
 
+
+// Update Bulma's global variables
+$family-sans-serif: $font-family-english;
+
 // ------------------------------------------ //
 // Font size                                  //
 // ------------------------------------------ //
@@ -63,8 +67,6 @@ $danger: $red;
 $dark: $black;
 $light: $white;
 $text: $grey-lighter;
-
-$content-heading-color: white-ter;
 
 $net-color: $red;
 $prang-color: $yellow;
@@ -102,18 +104,12 @@ $round: 9999px;
 // Bulma variable                             //
 // ------------------------------------------ //
 
-// Set your brand colors
-$purple: #8A4D76;
-$pink: #FA7C91;
-$brown: #757763;
-$beige-light: #D0D1CD;
-$beige-lighter: #EFF0EB;
-
-// Update Bulma's global variables
-$family-sans-serif: $font-family-english;
+$content-heading-color: $white-ter;
+$title-color: $white;
 
 // Update some of Bulma's component variables
-$body-background-color: $light;
+$body-background-color: $dark;
+$background: $grey-darker;
 
 @import '~bulma/sass/utilities/derived-variables';
 
