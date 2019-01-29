@@ -1,6 +1,6 @@
 {
   "name": "countup",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "kcnt countup anniversary",
   "author": "Kamontat Chantrachirathumrong",
   "private": true,
@@ -10,6 +10,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
+    "deploy": "./scripts/deploy.sh",
     "test": "ava --serial --verbose",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "babel-eslint": "8.2.6",
+    "conventional-changelog-cli": "2.0.11",
     "eslint": "5.10.0",
     "eslint-config-prettier": "3.3.0",
     "eslint-loader": "2.1.1",
