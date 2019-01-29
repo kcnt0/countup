@@ -60,6 +60,17 @@
         </nuxt-link>
 
         <nuxt-link 
+          v-tooltip.bottom="'infomation'" 
+          to="/beta/information">
+          <fa 
+            :class="[$style.iconLink, $style.iconInfo]"
+            :mask="['fas', 'circle']"
+            :icon="['fas', 'info']" 
+            size="3x"
+            transform="shrink-6"/>
+        </nuxt-link>
+
+        <!-- <nuxt-link 
           v-tooltip.bottom="'votes'" 
           to="/beta/votes">
           <fa 
@@ -68,7 +79,7 @@
             :icon="['fas', 'list']" 
             size="3x"
             transform="shrink-6"/>
-        </nuxt-link>
+        </nuxt-link> -->
       </div>
       <div 
         :class="[$style.arrowDown, mountLink ? $style.clean:'']" 
@@ -79,32 +90,54 @@
       <nuxt/>
     </div>
 
-    <div :class="[$style.socialMedia, $style.footerContainer, mountSocial ? $style.active:'']">
+    <div 
+      :class="[$style.socialMedia, $style.footerContainer, mountSocial ? $style.active:'']">
       <div 
+        v-tooltip.left="'social media'" 
         :class="[$style.arrowLeft, mountSocial ? $style.clean:'']" 
         @click="mountSocial = !mountSocial"/>
       <div :class="$style.socialContainer">
         <a 
-          v-tooltip.auto="'kamontat'"
+          v-tooltip.left="'kamontat'"
+          href="https://github.com/kamontat"
+          target="_blank">
+          <fa 
+            :class="[$style.iconLink, $style.iconGithub, $style.iconNet]"
+            :icon="['fab', 'github']" 
+            size="3x"/>
+        </a>
+
+        <a 
+          v-tooltip.left="'kamontat'"
           href="https://facebook.com/kamontatc"
           target="_blank">
           <fa 
             :class="[$style.iconLink, $style.iconFacebook, $style.iconNet]"
             :mask="['fas', 'circle']"
             :icon="['fab', 'facebook-f']" 
-            size="2x"
+            size="3x"
             transform="shrink-3.5 down-1.4 right-0.55"/>
         </a>
 
         <a 
-          v-tooltip.auto="'natcha'"
+          v-tooltip.left="'natcha'"
+          href="https://github.com/prangnt"
+          target="_blank">
+          <fa 
+            :class="[$style.iconLink, $style.iconGithub, $style.iconPrang]"
+            :icon="['fab', 'github']" 
+            size="3x"/>
+        </a>
+
+        <a 
+          v-tooltip.left="'natcha'"
           href="https://facebook.com/pprangnt"
           target="_blank">
           <fa 
             :class="[$style.iconLink, $style.iconFacebook, $style.iconPrang]" 
             :mask="['fas', 'circle']"
             :icon="['fab', 'facebook-f']" 
-            size="2x"
+            size="3x"
             transform="shrink-3.5 down-1.4 right-0.55"/>
         </a>
       </div>
@@ -140,6 +173,8 @@ export default {
 }
 
 .pageContainer {
+  min-height: 70px;
+
   padding-top: $gap-f-1;
 }
 
@@ -164,15 +199,17 @@ export default {
 .footerContainer {
   position: fixed;
   display: flex;
+  align-items: flex-end;
   z-index: 10;
 }
 
 .socialContainer {
   display: flex;
+  flex-direction: column;
 }
 
 .socialMedia {
-  right: -83px;
+  right: -60px - $gap-f-0;
 
   &.active {
     right: $gap-f-0;
@@ -198,23 +235,23 @@ export default {
   border-radius: 100%;
 
   opacity: 1;
-}
 
-.iconFacebook {
-  color: $white;
-  background-color: $black;
+  transition: all 0.6 ease;
 }
 
 .iconNet:hover {
-  color: $net-color;
+  color: $net-color !important;
 }
 
 .iconPrang:hover {
-  color: $prang-color;
+  color: $prang-color !important;
 }
 
 .iconVote,
-.iconHome {
+.iconHome,
+.iconInfo,
+.iconFacebook,
+.iconGithub {
   color: $white;
   background-color: $black;
 
@@ -259,14 +296,16 @@ export default {
 .arrowLeft {
   width: 0;
   height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
 
-  border-right: 20px solid #000;
+  border-right: 30px solid #000;
 
   opacity: 0.3;
 
   transition: all 0.6s ease;
+
+  margin-right: $gap-f-0;
 
   &:hover {
     opacity: 1;
