@@ -5,9 +5,8 @@
       :duration="-1"
       :speed="500"
       group="vote"
-      position="bottom right"
+      position="top right"
       width="30vw" />
-
     <div :class="$style.container">
       <h1 class="title is-3">What do you think about this website ? </h1>
       <div :class="$style.voteContainer">
@@ -29,10 +28,15 @@
         </button>
       </div>
 
-      <!-- TODO: Add latest vote that someones make -->
+      <div 
+        v-if="latest.id !== ''" 
+        :class="$style.footer">
+        <h2><span :class="$style.userText">{{ latest.user }}</span> just vote <span :class="$style['vote'+latest.vote.toUpperCase()]">{{ latest.vote.toUpperCase() }}</span> at {{ latest.city }}, {{ latest.country }}</h2>
+      </div>
 
       <!-- FIXME: implement new logic of voting -->
     </div>
+    
   </div>
 </template>
 
@@ -48,6 +52,7 @@ export default {
       buildDate: process.env.buildDate,
       disableVote: false,
       vote: 'none',
+      history: [],
       notifyObject: {
         thankyou: id => {
           return {
@@ -68,11 +73,42 @@ export default {
       }
     }
   },
+  computed: {
+    latest() {
+      if (this.history.length < 1)
+        return {
+          id: '',
+          country: '',
+          city: '',
+          vote: '',
+          user: '',
+          timestamp: ''
+        }
+      return this.history[this.history.length - 1]
+    }
+  },
   async asyncData({ app }) {
     const ip = await queryIP(app.$axios)
-
     return {
       ip: ip
+    }
+  },
+  mounted() {
+    try {
+      const ref = this.$fireDb.ref(`vote/${process.env.buildDate}`)
+      ref.on('child_added', snapshot => {
+        const o = snapshot.val()
+        this.history.push({
+          id: o.id,
+          country: o.ip.country,
+          city: o.ip.city,
+          vote: o.vote,
+          user: o.user.name,
+          timestamp: o.timestamp
+        })
+      })
+    } catch (e) {
+      console.error(e)
     }
   },
   methods: {
@@ -193,8 +229,37 @@ export default {
   margin-right: $gap-f-1;
 }
 
+.footer {
+  margin-top: $gap-f-0;
+  text-align: center;
+}
+
 .icon {
   margin-left: 6px;
+}
+
+.userText {
+  color: $primary;
+
+  &:hover {
+    color: $primary-dark;
+  }
+}
+
+.voteUP {
+  color: $green;
+
+  &:hover {
+    color: $green-dark;
+  }
+}
+
+.voteDOWN {
+  color: $red;
+
+  &:hover {
+    color: $red-dark;
+  }
 }
 </style>
 
