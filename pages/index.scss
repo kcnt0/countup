@@ -1,0 +1,206 @@
+@import '@/assets/styles/variable.scss';
+
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  // margin-right: auto;
+  // margin-left: auto;
+  min-height: 94vh;
+}
+
+.watchSetting {
+  padding-top: $gap-f-1;
+  padding-left: $gap-f-1;
+  padding-right: $gap-f-1;
+
+  background-color: black;
+  opacity: 0.85;
+  border-radius: $round-a
+}
+
+@include mobile {
+  .watchContainer {
+    width: 100vw;
+    height: 20vh;
+
+    left: -8px;
+    bottom: $gap-f-4;
+  }
+}
+
+@include tablet {
+  .watchContainer {
+    width: 70vw;
+    height: 20vh;
+
+    left: $gap-f-2;
+    bottom: $gap-f-2;
+  }
+}
+
+.watchContainer {
+  position: absolute;
+
+  transition: all 1s ease 0s;
+}
+
+.watchCenterContainer {
+  width: 90vw;
+  height: 30vh;
+
+  transition: all 1s ease 0s;
+}
+
+@include mobile {
+  .watchDigit {
+    font-size: 1.5em;
+  }
+}
+
+@include tablet {
+  .watchDigit {
+    font-size: 5em;
+  }
+}
+
+.watchDigit {
+  font-family: $font-family-number;
+  color: $yellow;
+}
+
+@include mobile {
+  .watchText {
+    font-size: 0.8rem;
+  }
+}
+
+@include tablet {
+  .watchText {
+    font-size: 1.4rem;
+  }
+}
+
+.watchText {
+  font-family: $font-family-english;
+  color: $grey-light;
+}
+
+.centerContainer {
+  position: fixed;
+  left: 50%;
+
+  transform: translate(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 10;
+}
+
+.rightContainer {
+  position: fixed;
+  right: $gap-f-1;
+
+  display: flex;
+
+  z-index: 10;
+}
+
+.pageContainer {
+  padding-top: $gap-f-1;
+}
+
+.pages {
+  top: -70px;
+
+  transition: all 0.5s ease;
+
+  &.active {
+    top: 0;
+
+    .pageContainer {
+      padding: $gap-f-1;
+      opacity: 0.7;
+      background-color: $black;
+      border-radius: $round-a;
+    }
+  }
+}
+
+.socialMedia {
+  bottom: $gap-f-2;
+}
+
+.iconLink {
+  margin: 5px;
+  border-radius: 100%;
+
+  opacity: 1;
+}
+
+.iconFacebook {
+  color: $white;
+  background-color: $black;
+
+  &:hover {
+    color: #3B5998;
+  }
+}
+
+.iconVote {
+  color: $white;
+  background-color: $black;
+
+  &:hover {
+    color: $black;
+    background-color: $white;
+  }
+}
+
+.iconGallery,
+.iconVotes,
+.iconWatch {
+  color: $white;
+  background-color: $black;
+
+  &:hover {
+    color: $black;
+    background-color: $white;
+  }
+}
+
+.arrowDown {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid #000;
+
+  opacity: 0.3;
+
+  transition: all 0.5s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.clean {
+    opacity: 0;
+  }
+}
+
+.onHigh {
+  z-index: 100;
+}
+
+.onMid {
+  z-index: 50;
+}
+
+.onLow {
+  z-index: 1;
+}

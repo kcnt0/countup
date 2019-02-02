@@ -1,26 +1,123 @@
 <template>
-  <div class="container has-background-black">
-    <section class="section">
-      <div class="content">
-        <h1 id="hello">Hello everyone</h1>
-        <p>My name is Kamontat Chantrachirathumrong. I'm are one of the team who create this website but we no finish yet.</p>
+  <div>
+    <Firework 
+      v-if="onFire" 
+      :class="$style.onMid"
+      @click="galleryIndex = imageIndex" />
 
-        <p>You might want to visit our website portfolio website at <a href="https://kcnt.info">https://kcnt.info</a> which also not finished. we will give you a alternative link to visit in case you want to know me more.</p>
-
-        <ul>
-          <li>beta version of this website <a href="https://kcnt.xyz/beta">https://kcnt.xyz/beta</a></li>
-          <li>first version of this website <a href="https://kcnt.xyz/v1">https://kcnt.xyz/v1</a></li>
-          <li>My personal Github <a href="https://github.com/kamontat">https://github.com/kamontat</a></li>
-        </ul>
-
-        <small>Thank you for visiting our website :)</small>
+    <Background :class="$style.onLow">
+      <div 
+        :class="$style.rootContainer" 
+        @click="mountLink = false">
+        <transition-group 
+          :class="$style.onHigh"
+          name="watch-transition">
+          <div 
+            :key="'watch-container'"
+            :class="watchContainer"
+            @click="focus('watch')">
+            <div 
+              :key="'watch-panel'" 
+              class="columns is-centered">
+              <div 
+                v-for="result in showResult"
+                :key="'watch-panel-'+result.key" 
+                class="column">
+                <p 
+                  :key="'watch-'+result.key" 
+                  :class="$style.watchDigit">{{ result.value }}</p>
+                <p :class="$style.watchText">{{ result.key }}</p>
+              </div>
+            </div>
+          </div>
+        </transition-group>
       </div>
-    </section>
+    </Background>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
+
+import { FindDuration, ShowDuration } from '@/assets/apis/duration.js'
+import { IsCelebrationDay } from '@/assets/apis/date.js'
+
+import Background from '@/components/background.vue'
+import Firework from '@/components/firework.vue'
+
 export default {
-  layout: 'dark'
+  components: {
+    Background,
+    Firework
+  },
+  asyncData({ query }) {
+    const result = {}
+
+    if (query.fire === 'true' || query.fire === '1') result.forceFire = true
+
+    return result
+  },
+  data() {
+    return {
+      refreshInterval: 1000,
+      watchList: ['Ady', 'Hr', 'Mi', 'Sc'],
+      now: moment(),
+      show: 'nothing', // nothing, images, watch
+      mountLink: false
+    }
+  },
+  computed: {
+    onFire() {
+      if (this.forceFire) return true // force firework
+      return IsCelebrationDay(this.duration)
+    },
+    duration() {
+      return FindDuration(this.now)
+    },
+    showResult() {
+      return ShowDuration(this.duration, this.watchList)
+    },
+    watchContainer() {
+      const result = {}
+
+      result[this.$style.watchSetting] = true
+      result[this.$style.watchContainer] = this.show !== 'watch'
+      result[this.$style.watchCenterContainer] = this.show === 'watch'
+
+      return result
+    }
+  },
+  mounted() {
+    window.setInterval(() => {
+      this.now = moment()
+    }, this.refreshInterval)
+  },
+  methods: {
+    focus(on) {
+      if (this.show === on) this.show = 'nothing'
+      else this.show = on
+    }
+  }
 }
 </script>
+
+<style lang="scss">
+.columns {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.column {
+  text-align: center;
+}
+</style>
+
+<style src="./index.transform.scss" lang="scss" scoped>
+</style>
+
+<style src="./index.scss" lang="scss" scoped module>
+</style>
