@@ -45,7 +45,7 @@ echo "completed"
 
 printf "make a commit    -- "
 
-git commit -m "chore(changelog): make new changelog" >/dev/null
+git commit -am "chore(changelog): make new changelog" >/dev/null
 
 echo "completed"
 

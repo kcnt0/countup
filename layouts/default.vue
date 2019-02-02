@@ -6,7 +6,7 @@
         :class="$style.pageContainer">
         <nuxt-link 
           v-tooltip.bottom="'home'" 
-          to="/beta">
+          to="/">
           <fa 
             :class="[$style.iconLink, $style.iconHome]"
             :mask="['fas', 'circle']"
@@ -17,7 +17,7 @@
 
         <nuxt-link 
           v-tooltip.bottom="'clock'" 
-          to="/beta/watch">
+          to="/watch">
           <fa 
             :class="[$style.iconLink, $style.iconWatch]"
             :mask="['fas', 'circle']"
@@ -28,7 +28,7 @@
 
         <nuxt-link
           v-tooltip.bottom="'gallery'" 
-          to="/beta/gallery">
+          to="/gallery">
           <fa 
             :class="[$style.iconLink, $style.iconGallery]"
             :mask="['fas', 'circle']"
@@ -39,7 +39,7 @@
 
         <!-- <nuxt-link 
           v-tooltip.bottom="'history'" 
-          to="/beta/history">
+          to="/history">
           <fa 
             :class="[$style.iconLink, $style.iconVotes]"
             :mask="['fas', 'circle']"
@@ -50,7 +50,7 @@
 
         <nuxt-link 
           v-tooltip.bottom="'vote!'" 
-          to="/beta/vote">
+          to="/vote">
           <fa 
             :class="[$style.iconLink, $style.iconVote]"
             :mask="['fas', 'circle']"
@@ -61,7 +61,7 @@
 
         <nuxt-link 
           v-tooltip.bottom="'infomation'" 
-          to="/beta/information">
+          to="/information">
           <fa 
             :class="[$style.iconLink, $style.iconInfo]"
             :mask="['fas', 'circle']"
@@ -72,7 +72,7 @@
 
         <!-- <nuxt-link 
           v-tooltip.bottom="'votes'" 
-          to="/beta/votes">
+          to="/votes">
           <fa 
             :class="[$style.iconLink, $style.iconVotes]"
             :mask="['fas', 'circle']"
@@ -169,7 +169,7 @@ export default {
   flex-direction: column;
   align-items: center;
 
-  z-index: 10;
+  z-index: 9999;
 }
 
 .pageContainer {
@@ -200,7 +200,7 @@ export default {
   position: fixed;
   display: flex;
   align-items: flex-end;
-  z-index: 10;
+  z-index: 9999;
 }
 
 .socialContainer {

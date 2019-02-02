@@ -1,3 +1,13 @@
+# [2.3.0](https://gitlab.com/kamontat/kcnt-countup/compare/v2.2.0...v2.3.0) (2019-02-02)
+
+
+### Features
+
+* **path:** change ui path, remove beta path ([30fcdf6](https://gitlab.com/kamontat/kcnt-countup/commit/30fcdf6))
+* **ui:** add firework to index page ([1b45857](https://gitlab.com/kamontat/kcnt-countup/commit/1b45857))
+
+
+
 # [2.2.0](https://gitlab.com/kamontat/kcnt-countup/compare/v1.0.0...v2.2.0) (2019-01-29)
 
 
