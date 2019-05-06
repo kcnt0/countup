@@ -101,7 +101,7 @@ module.exports = {
   modules: ['@nuxtjs/axios', '@nuxtjs/google-analytics', 'nuxt-fontawesome'],
 
   'google-analytics': {
-    id: 'UA-124896160-5'
+    id: 'UA-139654704-1'
   },
 
   fontawesome: {
