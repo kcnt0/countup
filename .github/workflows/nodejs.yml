@@ -24,6 +24,25 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install
-    - run: yarn generate
       env:
         CI: true
+    - run: yarn generate --fail-on-error
+      env:
+        CI: true
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v1.4.0
+      with:
+        # Git branch where assets will be deployed
+        target_branch: gh-pages
+        # Create incremental commit instead of doing push force
+        keep_history: true
+        # Allow an empty commit to be created
+        allow_empty_commit: true
+        # Build directory to deploy
+        build_dir: dist
+        # Commit author's name
+        committer_name: Kamontat Chantrachirathumrong
+        # Commit author's email
+        committer_email: developer@kamontat.net
+        # Commit message
+        commit_message: updates new content
