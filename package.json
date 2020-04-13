@@ -24,7 +24,7 @@
     "@nuxtjs/axios": "5.3.6",
     "@nuxtjs/google-analytics": "2.0.2",
     "ava": "1.1.0",
-    "bulma": "0.7.2",
+    "bulma": "0.8.2",
     "firebase": "5.8.1",
     "jsdom": "16.2.2",
     "moment": "2.24.0",
