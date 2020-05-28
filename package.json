@@ -29,7 +29,7 @@
     "jsdom": "16.2.2",
     "moment": "2.24.0",
     "node-sass": "4.11.0",
-    "nuxt": "2.3.4",
+    "nuxt": "2.12.2",
     "nuxt-fontawesome": "0.4.0",
     "sass-loader": "7.1.0",
     "v-tooltip": "2.0.0-rc.33",
