@@ -41,7 +41,7 @@
     "vue-swal": "1.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "10.1.0",
     "conventional-changelog-cli": "2.0.34",
     "eslint": "5.16.0",
     "eslint-config-prettier": "6.11.0",
