@@ -11575,10 +11575,10 @@ vue-eslint-parser@^7.0.0:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
-vue-gallery-slideshow@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/vue-gallery-slideshow/-/vue-gallery-slideshow-1.3.0.tgz#b18bd3edd1be3ff8a2cf7c0c7e9ff3faa1796c33"
-  integrity sha512-t+1YQOeUIKX/ZQ1xedHXDU9JcJ5U1EuQNIwcDxfIenXtmNK/+o6ZBUdloLCwFZTyCen39knwPPbdgI+U3t823A==
+vue-gallery-slideshow@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/vue-gallery-slideshow/-/vue-gallery-slideshow-1.5.0.tgz#4a2cc43f4aa8d41553f3afedb172a5f6c6a672b1"
+  integrity sha512-LMl9rRRG7X9OVoOhBH4uBL2/+ABTJvoZzh/qQtwk56dtkQ9ahkrP/LXKSMCh4ZdmUIgHM1abmQ0JYv/IW1UtYA==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"
