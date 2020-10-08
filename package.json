@@ -27,7 +27,7 @@
     "bulma": "0.9.1",
     "firebase": "7.22.1",
     "jsdom": "16.4.0",
-    "moment": "2.29.0",
+    "moment": "2.29.1",
     "node-sass": "4.14.1",
     "nuxt": "2.14.6",
     "nuxt-fontawesome": "0.4.0",
