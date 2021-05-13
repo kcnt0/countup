@@ -31,7 +31,7 @@
     "node-sass": "5.0.0",
     "nuxt": "2.15.6",
     "nuxt-fontawesome": "0.4.0",
-    "sass-loader": "10.1.1",
+    "sass-loader": "11.1.1",
     "v-tooltip": "2.1.3",
     "vue-agile": "1.1.3",
     "vue-gallery-slideshow": "1.5.2",
